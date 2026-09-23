@@ -21,6 +21,10 @@ class FetchError(RuntimeError):
     pass
 
 
+class PipelineError(RuntimeError):
+    """A step found a problem that must stop the run (the runner exits non-zero)."""
+
+
 @dataclass
 class Context:
     root: Path = ROOT
@@ -41,6 +45,15 @@ class Context:
     @property
     def output_dir(self):
         return self.root / "output"
+
+    @property
+    def output_path(self):
+        return self.output_dir / "gatt_services.json"
+
+    @property
+    def candidate_output(self):
+        """Dataset written by the build step; published to output_path only if validation passes."""
+        return self.build_dir / "gatt_services.candidate.json"
 
     @property
     def previous_output(self):

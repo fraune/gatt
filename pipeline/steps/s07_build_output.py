@@ -1,34 +1,36 @@
-"""Step 7: assemble output/gatt_services.json and a problems report.
+"""Step 7: assemble the schema 2.0 dataset as a candidate file (validated and published by step 8).
 
-Verification status per service:
-  verified - table extracted and every characteristic resolved from primary sources, or (for
-             services with no table) every expect_text phrase was found in the spec
-  partial  - extracted, but some characteristics carry a flag or rows failed to resolve
-  flagged  - no document, no usable table, or an expected phrase was missing
+Registries come straight from Assigned Numbers: every characteristic and every service, whether
+or not any modeled spec references it. serviceDefinitions hold one entry per service.
 
-Outputs: output/gatt_services.json, build/problems.md, and build/previous_gatt_services.json
-(a copy of the prior output, taken before overwriting it, used by the diff step).
+verificationStatus per service definition:
+  verified   - the characteristic list comes from the latest adopted spec and every entry resolved
+               to an Assigned Numbers UUID; or, for services with no table, the spec text that
+               proves it (expect_text) was found
+  unverified - anything less: no spec/table, unresolved or ambiguous rows, a missing expected
+               phrase, or a characteristic whose UUID is not confirmed by Assigned Numbers
+               (overrides manual_uuids). characteristicRefs and includedServices are left empty
+               and verificationNotes says why. Nothing partial is emitted.
+
+Outputs: build/gatt_services.candidate.json, build/problems.md
 """
 
 import json
-import shutil
 from datetime import UTC, datetime
 
+SCHEMA_VERSION = "2.0"
 
-def _included(uuid, ov, ext, services_by_uuid, problems):
+
+def _included(ov, ext, problems):
     out = []
     for inc in ov.get("included", []):
-        iu = str(inc["uuid"]).upper()
         entry = {
-            "uuid": iu,
-            "name": services_by_uuid.get(iu, {}).get("name", "?"),
+            "uuid": str(inc["uuid"]).upper(),
             "requirement": inc.get("requirement", "optional"),
         }
-        if inc.get("condition"):
-            entry["condition"] = inc["condition"]
+        if entry["requirement"] == "conditional" and inc.get("condition"):
+            entry["condition"] = " ".join(inc["condition"].split())
         out.append(entry)
-        if iu not in services_by_uuid:
-            problems.append(f"included service {iu} is not in Assigned Numbers")
         phrase = inc.get("expect_text")
         if phrase and not ext.get("text_checks", {}).get(phrase):
             problems.append(f'included-service evidence not found in spec: "{phrase}"')
@@ -40,98 +42,109 @@ def _included(uuid, ov, ext, services_by_uuid, problems):
     return out
 
 
+def _ref(c):
+    ref = {"uuid": c["uuid"], "requirement": c["requirement"]}
+    if c["requirement"] == "conditional":
+        ref["condition"] = c.get("condition") or ""
+    return ref
+
+
+def _definition(svc, ov, spec, ext, res):
+    problems = list(res["problems"])
+    if not spec:
+        problems.insert(0, "no adopted specification found on bluetooth.com")
+    elif ext.get("status") == "error":
+        problems.insert(0, ext["error"])
+    expected = ov.get("expect_text")
+    if expected and not ext.get("text_checks", {}).get(expected):
+        problems.append(f'expected phrase not found in spec: "{expected}"')
+    included = _included(ov, ext, problems)
+    flags = [
+        f"{c['name']} ({c['uuid']}): {' '.join(c['flag'].split())}"
+        for c in res["characteristics"]
+        if c.get("flag")
+    ]
+
+    definition = {
+        "uuid": svc["uuid"],
+        "specification": spec["label"] if spec else None,
+        "specificationUrl": spec["doc_url"] if spec else None,
+    }
+    note = " ".join(ov.get("note", "").split())
+    if problems or flags:
+        reasons = problems + flags
+        definition["verificationStatus"] = "unverified"
+        definition["verificationNotes"] = " ".join(
+            ["Characteristic list withheld: " + " | ".join(reasons)]
+            + ([note] if note else [])
+        )
+        definition["includedServices"] = []
+        definition["characteristicRefs"] = []
+    else:
+        definition["verificationStatus"] = "verified"
+        if note:
+            definition["verificationNotes"] = note
+        definition["includedServices"] = included
+        definition["characteristicRefs"] = [_ref(c) for c in res["characteristics"]]
+    return definition, problems + flags
+
+
 def run(ctx):
     assigned = ctx.read_json("assigned_numbers.json")
     specs = ctx.read_json("service_specs.json")["services"]
     extracted = ctx.read_json("extracted.json")
     resolved = ctx.read_json("resolved.json")
     overrides = ctx.load_overrides()["services"]
-    services_by_uuid = {s["uuid"]: s for s in assigned["services"]}
 
-    services, report = [], []
+    definitions, report = [], []
     for svc in assigned["services"]:
         uuid = svc["uuid"]
-        ov, spec = overrides.get(uuid, {}), specs.get(uuid)
-        ext, res = (
+        definition, reasons = _definition(
+            svc,
+            overrides.get(uuid, {}),
+            specs.get(uuid),
             extracted.get(uuid, {}),
             resolved.get(uuid, {"characteristics": [], "problems": []}),
         )
-        problems = list(res["problems"])
-        if ext.get("status") == "error":
-            problems.insert(0, ext["error"])
-        for phrase, found in ext.get("text_checks", {}).items():
-            if not found and phrase == ov.get("expect_text"):
-                problems.append(f'expected phrase not found in spec: "{phrase}"')
+        definitions.append(definition)
+        if reasons:
+            report.append(
+                (uuid, svc["name"], definition["verificationStatus"], reasons)
+            )
 
-        entry = {
-            "uuid": uuid,
-            "name": svc["name"],
-            "specification": spec["label"] if spec else None,
-            "specificationUrl": spec["doc_url"] if spec else None,
-            "gattService": ov.get("gatt_service", True),
-            "includedServices": _included(uuid, ov, ext, services_by_uuid, problems),
-            "characteristics": res["characteristics"],
-        }
-        flagged_chars = any("flag" in c for c in entry["characteristics"])
-        if (
-            not spec
-            or ext.get("status") == "error"
-            or any("expected phrase" in p for p in problems)
-        ):
-            status = "flagged"
-        elif problems or flagged_chars:
-            status = "partial"
-        else:
-            status = "verified"
-        entry["verification"] = status
-        if ov.get("note"):
-            entry["notes"] = ov["note"].strip()
-        services.append(entry)
-        if problems or status != "verified":
-            report.append((uuid, svc["name"], status, problems))
-
-    meta = {
-        "generated": datetime.now(UTC).date().isoformat(),
-        "generator": "pipeline (python -m pipeline); hand-maintained decisions live in overrides/overrides.yaml",
-        "serviceListSource": assigned["sources"]["services"],
-        "characteristicNameSource": assigned["sources"]["characteristics"],
-        "requirementValues": {
-            "mandatory": "M in the specification table",
-            "optional": "O in the specification table",
-            "conditional": "C.n in the specification table; condition holds the footnote text",
+    dataset = {
+        "metadata": {
+            "generatedAt": datetime.now(UTC).date().isoformat(),
+            "primarySource": (
+                "Bluetooth SIG Assigned Numbers, bluetooth-SIG/public repository commit "
+                f"{assigned['commit'][:12]} ({assigned['commit_date'][:10]})"
+            ),
+            "schemaVersion": SCHEMA_VERSION,
         },
-        "verificationValues": {
-            "verified": "Characteristics and requirements extracted from the latest adopted specification",
-            "partial": "Extracted, but at least one characteristic is flagged or unresolved",
-            "flagged": "Specification or table could not be found or verified",
-        },
-        "scope": "Characteristics only; descriptors are omitted. specName is present when the spec table "
-        "uses a different name than Assigned Numbers.",
+        "characteristics": [
+            {"uuid": c["uuid"], "name": c["name"]} for c in assigned["characteristics"]
+        ],
+        "services": [
+            {"uuid": s["uuid"], "name": s["name"]} for s in assigned["services"]
+        ],
+        "serviceDefinitions": definitions,
     }
-    ctx.output_dir.mkdir(parents=True, exist_ok=True)
-    out_path = ctx.output_dir / "gatt_services.json"
-    if out_path.exists():
-        ctx.build_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(out_path, ctx.previous_output)
-    out_path.write_text(
-        json.dumps(
-            {"metadata": meta, "services": services}, indent=2, ensure_ascii=False
-        )
-        + "\n"
+    ctx.candidate_output.parent.mkdir(parents=True, exist_ok=True)
+    ctx.candidate_output.write_text(
+        json.dumps(dataset, indent=2, ensure_ascii=False) + "\n"
     )
 
     lines = ["# Pipeline problems", ""]
-    for uuid, name, status, problems in report:
+    for uuid, name, status, reasons in report:
         lines.append(f"## {uuid} {name} ({status})")
-        lines += [f"- {p}" for p in problems] or [
-            "- (no problems recorded; see flags on characteristics)"
-        ]
-        lines.append("")
+        lines += [f"- {r}" for r in reasons] + [""]
     (ctx.build_dir / "problems.md").write_text("\n".join(lines) + "\n")
 
     counts = {}
-    for s in services:
-        counts[s["verification"]] = counts.get(s["verification"], 0) + 1
-    return f"wrote {out_path.relative_to(ctx.root)}: " + ", ".join(
-        f"{v} {k}" for k, v in sorted(counts.items())
+    for d in definitions:
+        counts[d["verificationStatus"]] = counts.get(d["verificationStatus"], 0) + 1
+    return (
+        f"wrote {ctx.candidate_output.relative_to(ctx.root)}: "
+        f"{len(dataset['characteristics'])} characteristics, {len(dataset['services'])} services, "
+        + ", ".join(f"{v} {k}" for k, v in sorted(counts.items()))
     )

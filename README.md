@@ -2,9 +2,10 @@
 
 JSON mapping every Bluetooth SIG GATT service (Assigned Numbers) to the characteristics its spec defines, with mandatory/optional/conditional requirements and included services. Built to quickly answer, "which characteristics are normally found on this service?"
 
-Completeness:
+Completeness (schema 2.0):
 
-- 76 services, 473 characteristics
+- Registries: all 512 characteristics and 76 services in Assigned Numbers
+- Service definitions: 74 verified (469 characteristic refs, 7 included-service refs), 2 unverified
 
 ## Files
 
@@ -31,9 +32,9 @@ python -m venv .venv                       # Python 3.14
 | `--refresh` | Re-download everything (cache never expires otherwise) |
 | `--reference PATH` | Diff against this file instead of the previous run's output |
 
-After a run, read `build/problems.md` (issues per service) and `build/diff_report.md` (changes since the previous run).
+After a run, read `build/problems.md` (issues per service), `build/validation.md`, and `build/diff_report.md` (changes since the previous run).
 
-The build step copies the existing `output/gatt_services.json` to `build/previous_gatt_services.json` before overwriting it. To diff against the last commit instead:
+The build step writes a candidate to `build/`. The validate step publishes it to `output/` only if every check passes; otherwise the run exits 1 and `output/` is untouched. Before publishing, the existing output is copied to `build/previous_gatt_services.json` for the diff. To diff against the last commit instead:
 
 ```sh
 git show HEAD:output/gatt_services.json > /tmp/committed.json
@@ -44,72 +45,72 @@ git show HEAD:output/gatt_services.json > /tmp/committed.json
 
 | # | Step | Does | Artifact |
 |---|---|---|---|
-| 1 | `assigned-numbers` | Service/characteristic UUID YAML + permitted-characteristic lists from the SIG Bitbucket repo | `assigned_numbers.json` |
+| 1 | `assigned-numbers` | Service/characteristic UUID YAML + permitted-characteristic lists, pinned to one SIG repo commit | `assigned_numbers.json` |
 | 2 | `catalog` | Crawls all ~266 spec pages on bluetooth.com: title, version, status, HTML/PDF links | `spec_catalog.json` |
 | 3 | `select` | Latest *adopted* spec per service (default title `"<name> Service"`) | `service_specs.json` |
 | 4 | `download` | Fetches the HTML edition of each selected spec (~70 docs) | `documents.json` |
 | 5 | `extract` | Finds the characteristic table; parses rows and C.n condition footnotes | `extracted.json` |
 | 6 | `resolve` | Maps spec names to the official Assigned Numbers name + UUID | `resolved.json` |
-| 7 | `build` | Writes `output/gatt_services.json` and `problems.md` | |
-| 8 | `diff` | Compares output against the previous run's output (or `--reference`) | `diff_report.md` |
+| 7 | `build` | Assembles the schema 2.0 dataset | `gatt_services.candidate.json`, `problems.md` |
+| 8 | `validate` | Integrity + schema checks; publishes to `output/` only on success | `validation.md` |
+| 9 | `diff` | Compares output against the previous run's output (or `--reference`); reads schema 1 or 2.0 | `diff_report.md` |
 
 The pipeline fails loudly: an ambiguous table, unresolved name, or missing `expect_text` phrase will be reported.
 
-## Output format
+## Output format (schema 2.0)
 
 ```json
 {
-    "metadata": { ... },
-    "services": [
+    "metadata": {
+        "generatedAt": "2026-09-23",
+        "primarySource": "Bluetooth SIG Assigned Numbers, bluetooth-SIG/public repository commit bf121603e6a1 (2026-09-23)",
+        "schemaVersion": "2.0"
+    },
+    "characteristics": [ { "uuid": "2A00", "name": "Device Name" } ],
+    "services": [ { "uuid": "180D", "name": "Heart Rate" } ],
+    "serviceDefinitions": [
         {
             "uuid": "180D",
-            "name": "Heart Rate",
             "specification": "Heart Rate Service v1.0",
             "specificationUrl": "https://...",
-            "gattService": true,
-            "includedServices": [
-                {
-                    "uuid": "...",
-                    "name": "...",
-                    "requirement": "...",
-                    "condition": "..."
-                }
-            ],
-            "characteristics": [
-                {
-                    "uuid": "2A39",
-                    "name": "Heart Rate Control Point",
-                    "requirement": "conditional",
-                    "condition": "Mandatory if ...",
-                    "specName": "...",
-                    "flag": "...",
-                    "source": "..."
-                }
-            ],
-            "verification": "verified",
-            "notes": "..."
+            "verificationStatus": "verified",
+            "verificationNotes": "...",
+            "includedServices": [ { "uuid": "...", "requirement": "...", "condition": "..." } ],
+            "characteristicRefs": [
+                { "uuid": "2A37", "requirement": "mandatory" },
+                { "uuid": "2A39", "requirement": "conditional", "condition": "Mandatory if ..." }
+            ]
         }
     ]
 }
 ```
 
+- Registries (`characteristics`, `services`) are every entry in Assigned Numbers, including ones no service references. Names are official Assigned Numbers names.
+- One `serviceDefinitions` entry per service. Refs carry only `uuid` + `requirement` (+ `condition` when conditional); look names up in the registries.
 - UUIDs: 4-char uppercase hex, no `0x`.
-- `requirement`: `mandatory` (M), `optional` (O), `conditional` (C.n, with `condition` text).
-- `verification`: `verified` / `partial` (a characteristic has a `flag`) / `flagged` (spec or table not found).
-- `specName`: present when the spec table's name differs from the official name (e.g. `RACP`).
-- `flag`: UUID not confirmed from a primary source; read before trusting.
+- `requirement`: `mandatory` (M), `optional` (O), `conditional` (C.n). `condition` appears only on conditional entries.
+- `verificationStatus`: `verified` or `unverified`. Unverified definitions have empty lists and a `verificationNotes` explaining why; nothing partial is emitted.
+- `verificationNotes` on verified definitions explains context (e.g. why a list is empty for advertising-only UUIDs).
+
+### Validation (step 8)
+
+Fails the run if any `characteristicRefs`/`includedServices` UUID is missing from its registry, a registry has duplicate/malformed UUIDs or names with markup, a service lacks exactly one definition, a requirement/condition is invalid, an unverified definition isn't empty with notes, or unexpected keys appear.
 
 ## Sources
 
-- Service list and characteristic names/UUIDs: SIG Assigned Numbers YAML (`bitbucket.org/bluetooth-SIG/public`).
+- Service list and characteristic names/UUIDs: SIG Assigned Numbers YAML (`bitbucket.org/bluetooth-SIG/public`), pinned to the head commit of `main` at fetch time (recorded in `metadata.primarySource`). The SIG's Assigned Numbers page links this repo as the official YAML source.
+- One-off cross-check (not in the pipeline): the registries match the Assigned Numbers PDF (2026-09-23) "Characteristics by UUID" table (512) and GATT Services table (76) exactly.
 - Characteristic membership and requirements: HTML edition of each spec on bluetooth.com.
 - ESS / UDS / IMDS category members: SIG `*_permitted_characteristics.yaml`.
 - Not used by the pipeline: PDFs, ICS documents (the `/download/` links are Cloudflare-blocked), secondary sources.
 
 ## Known issues
 
-- **Automation IO (0x1815):** Digital (0x2A56) and Analog (0x2A58) are absent from current Assigned Numbers (checked the 2023-12 and 2026-09 editions). The UUIDs come from secondary sources and are flagged.
-- **Elapsed Time (0x183F):** the spec's "Current Elapsed Time" has no UUID by that name. It is mapped to 0x2BF2 "Elapsed Time", but that is 9 octets vs the spec's 11. Inferred and flagged.
+- **Automation IO (0x1815): unverified.** Digital (0x2A56) and Analog (0x2A58) are absent from Assigned Numbers (checked the 2023-12 and 2026-09 editions), so they can't be in the registry. The whole list is withheld.
+- **Elapsed Time (0x183F): unverified.** The spec's "Current Elapsed Time" has no UUID by that name; 0x2BF2 "Elapsed Time" is the only candidate but is 9 octets vs the spec's 11. List withheld.
+- **LaTeX in Assigned Numbers names:** the YAML names 0x2B8C `CO\textsubscript{2} Concentration`. Step 1 converts sub/superscripts to Unicode (`CO₂ Concentration`); validation rejects any other markup.
+- **GAP / GATT names:** Assigned Numbers calls 0x1800/0x1801 "GAP" and "GATT" (not "Generic Access"/"Generic Attribute").
+- **Conditions on optional entries:** schema 2.0 keeps `condition` only on conditional refs, so role notes like GAP's "LE Central: Excluded" on optional entries are dropped.
 - **Generic Health Sensor (0x1840):** Health Sensor Features is "O" in the spec table. It looks odd but is reproduced as published.
 - **AIOS conditions:** overridden, because the table's C.3–C.5 are property rules, not presence rules.
 - **HIDS "Report":** Input/Output/Feature sub-rows are merged into one entry.

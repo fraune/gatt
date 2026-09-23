@@ -24,13 +24,15 @@
 #     placeholders:                 category row expanded from the SIG permitted-characteristics list
 #       "<row name>": {requirement: .., condition: ..}   (omit to inherit the row's requirement)
 #     permitted: ignore             service has a permitted list that is NOT a characteristic list
-#     manual_uuids:                 names Assigned Numbers does not list; flag is mandatory
+#     manual_uuids:                 names Assigned Numbers does not list; flag is mandatory.
+#                                   A flagged characteristic makes the whole definition "unverified"
+#                                   (lists withheld) because it can't be in the characteristics registry.
 #       "<spec name>": {uuid: "2A56", name: "...", flag: "..."}
 #     requirements:                 replace an extracted requirement/condition
 #       "<name>": {requirement: optional|mandatory|conditional, condition: "..."}
 #     included:                     included (nested) services; there is no structured source
 #       - {uuid: "180F", requirement: .., condition: .., expect_text: ".."}
-#     note: "..."                   copied into the output entry
+#     note: "..."                   copied into the definition's verificationNotes
 # ---------------------------------------------------------------------------------------------
 
 aliases:

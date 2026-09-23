@@ -11,7 +11,7 @@ import sys
 import time
 from pathlib import Path
 
-from .context import Context
+from .context import Context, PipelineError
 from .steps import (
     s01_assigned_numbers,
     s02_spec_catalog,
@@ -20,7 +20,8 @@ from .steps import (
     s05_extract_tables,
     s06_resolve,
     s07_build_output,
-    s08_diff_reference,
+    s08_validate,
+    s09_diff_reference,
 )
 
 STEPS = [
@@ -31,7 +32,8 @@ STEPS = [
     ("extract", s05_extract_tables),
     ("resolve", s06_resolve),
     ("build", s07_build_output),
-    ("diff", s08_diff_reference),
+    ("validate", s08_validate),
+    ("diff", s09_diff_reference),
 ]
 NAMES = [n for n, _ in STEPS]
 
@@ -78,7 +80,11 @@ def main(argv=None):
     for i, (name, module) in enumerate(selected, 1):
         print(f"[{i}/{len(selected)}] {name}", flush=True)
         t0 = time.monotonic()
-        summary = module.run(ctx)
+        try:
+            summary = module.run(ctx)
+        except PipelineError as e:
+            print(f"    FAILED: {e}", file=sys.stderr, flush=True)
+            return 1
         print(f"    -> {summary} ({time.monotonic() - t0:.1f}s)", flush=True)
     return 0
 
