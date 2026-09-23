@@ -1,0 +1,327 @@
+# Hand-maintained decisions for the GATT services pipeline.
+#
+# The pipeline does everything it can from primary sources. This file holds only the cases where
+# automation can't decide (or would decide wrongly). Every entry should say WHY it exists.
+#
+# ---------------------------------------------------------------------------------------------
+# aliases:            spec-table name -> official Assigned Numbers characteristic name (all services)
+#
+# services:
+#   "<UUID>":                       16-bit service UUID, uppercase hex, quoted
+#     spec:
+#       titles: [..]                spec page titles to consider (default: "<service name> Service")
+#       version: "x.y"              pin a version instead of taking the latest adopted
+#       doc_path: path.html         use this page of a multi-page HTML spec (Core Specification)
+#       label: "..."                output "specification" string; {title} and {version} available
+#     table:
+#       caption: regex              pick the table whose caption matches (multi-table documents)
+#       requirement_columns: [..]   header names of the requirement column(s); >1 = per-role table
+#     extract: false                no characteristic table to parse (set expect_text instead)
+#     ignore_included_sections: true   don't warn about "Included services" sections in this document
+#     expect_text: "..."            phrase that must appear in the spec; proves the no-table case
+#     gatt_service: false           UUID is only used in advertising data, not as a GATT service
+#     aliases: {..}                 like the global aliases, for this service only
+#     placeholders:                 category row expanded from the SIG permitted-characteristics list
+#       "<row name>": {requirement: .., condition: ..}   (omit to inherit the row's requirement)
+#     permitted: ignore             service has a permitted list that is NOT a characteristic list
+#     manual_uuids:                 names Assigned Numbers does not list; flag is mandatory
+#       "<spec name>": {uuid: "2A56", name: "...", flag: "..."}
+#     requirements:                 replace an extracted requirement/condition
+#       "<name>": {requirement: optional|mandatory|conditional, condition: "..."}
+#     included:                     included (nested) services; there is no structured source
+#       - {uuid: "180F", requirement: .., condition: .., expect_text: ".."}
+#     note: "..."                   copied into the output entry
+# ---------------------------------------------------------------------------------------------
+
+aliases:
+  RACP: Record Access Control Point                        # BLS, GHSS tables abbreviate
+  RCCP: Reconnection Configuration Control Point           # RCS table abbreviates
+  ACS CP: ACS Control Point                                # ACS table abbreviates
+  Bearer Uniform Caller Identifier (UCI): Bearer UCI       # TBS table spells it out
+  Gain Setting Properties: Gain Settings Attribute         # AICS name; 0x2B78 sits in AICS table order 0x2B77-0x2B7C
+  TPMS Sensor Position: TPMS Position                      # TPMSS table vs Assigned Numbers 0x2C40
+  VAS Control Point: Voice Assistant Service Control Point # VAS table abbreviates (0x2C33)
+
+services:
+
+  # --- Core Specification ------------------------------------------------------------------
+  "1800":   # GAP: defined in Core Vol 3 Part C Section 12; table has one column per GAP role
+    spec:
+      titles: [Core Specification]
+      doc_path: host/generic-access-profile.html
+      label: "Bluetooth Core Specification v{version}, Vol 3, Part C (GAP), Section 12"
+    table:
+      caption: Requirements related to GAP Service characteristics
+      requirement_columns: [LE Peripheral, LE Central]
+    note: >-
+      Requirements come from Core Table 12.2 and are per GAP role. This dataset combines the LE
+      Peripheral and LE Central columns; BR/EDR and LE Broadcaster/Observer columns are not used.
+
+  "1801":   # GATT: defined in Core Vol 3 Part G Section 7; table has client and server columns
+    spec:
+      titles: [Core Specification]
+      doc_path: host/generic-attribute-profile--gatt-.html
+      label: "Bluetooth Core Specification v{version}, Vol 3, Part G (GATT), Section 7"
+    table:
+      caption: GATT service characteristic support
+      requirement_columns: [Support in Server]
+    ignore_included_sections: true   # the GATT chapter's "Included services" sections define the concept, not this service
+    note: Requirements shown are the Server column of Core Table 7.1.
+
+  # --- Services whose spec page has a different title ---------------------------------------
+  "1812":   # HIDS v1.0 is titled "Human Interface Device Service"; v1.1 is "HID Service Specification"
+    spec:
+      titles: [Human Interface Device Service, HID Service Specification]
+      label: "HID Service v{version}"
+    requirements:
+      Report:   # sub-rows (Input/Output/Feature Report Type) are merged into this row
+        requirement: optional
+        condition: >-
+          Optional; if supported, at least one Report Type (Input, Output, or Feature) is mandatory.
+          Multiple instances are permitted.
+    included:
+      - uuid: "180F"
+        requirement: conditional
+        condition: >-
+          HID over GATT Profile v1.2: any non-HID service (e.g., Battery Service) that has a
+          characteristic whose value is described within the Report Map characteristic value shall be
+          referenced as an «Include» within the HID Service definition.
+        # evidence lives in HOGP, not HIDS, so there is no expect_text here
+
+  "1820":   # IP Support Service is defined inside the IP Support Profile and has no characteristics
+    spec:
+      titles: [Internet Protocol Support Profile]
+      label: "Internet Protocol Support Profile v{version}, Section 4.1 (IP Support Service)"
+    extract: false
+    expect_text: This service does not define any characteristics.
+    note: IPSP Section 4.1.2 states that the IP Support Service defines no characteristics.
+
+  "1827":   # Mesh Provisioning Service: defined in the Mesh Protocol spec
+    spec:
+      titles: [Mesh Protocol]
+      label: "Mesh Protocol v{version}, Section 7.1 (Mesh Provisioning Service)"
+    table:
+      caption: Mesh Provisioning Service characteristics
+
+  "1828":   # Mesh Proxy Service: defined in the Mesh Protocol spec
+    spec:
+      titles: [Mesh Protocol]
+      label: "Mesh Protocol v{version}, Section 7.2 (Mesh Proxy Service)"
+    table:
+      caption: Mesh Proxy Service characteristics
+
+  "1859":   # Mesh Proxy Solicitation: advertising-only UUID used in Solicitation PDUs
+    spec:
+      titles: [Mesh Protocol]
+    extract: false
+    gatt_service: false
+    expect_text: Service Data AD Type that carries network layer information for the Mesh Proxy Solicitation Service
+    note: >-
+      Not a GATT service. The UUID is used only in Solicitation PDUs (non-connectable advertising
+      with Service UUID and Service Data AD types). No characteristics are defined.
+
+  "1849":   # GMCS is defined in the MCS spec and shares its table
+    spec:
+      titles: [Media Control Service]
+      label: "{title} v{version} (defines GMCS)"
+    included:
+      - uuid: "1825"
+        requirement: conditional
+        condition: >-
+          If any Object ID characteristic (Media Player Icon, Current Track Segments, Current Track,
+          Next Track, Parent Group, Current Group, Search Results) is exposed, OTS shall be instantiated
+          as a «Secondary Service» and included.
+        expect_text: shall be instantiated as a «Secondary Service» and shall be included in MCS or GMCS
+    note: >-
+      GMCS uses the same characteristic table as MCS; Notify on Media Player Name is mandatory for
+      GMCS (optional for MCS).
+
+  "184C":   # GTBS is defined in the TBS spec and shares its table
+    spec:
+      titles: [Telephone Bearer Service]
+      label: "{title} v{version} (defines GTBS)"
+    note: GTBS uses the same characteristic table as TBS (it applies to each TBS instance and the single GTBS instance).
+
+  "185F":   # GVAS is defined in the VAS spec and shares its table
+    spec:
+      titles: [Voice Assistant Service]
+      label: "{title} v{version} (defines GVAS)"
+    note: GVAS uses the same characteristic table as VAS (it applies to each VAS instance and the single GVAS instance).
+
+  "1851":   # Basic Audio Announcement: advertising-only UUID defined in BAP
+    spec:
+      titles: [Basic Audio Profile]
+    extract: false
+    gatt_service: false
+    expect_text: Basic Audio Announcement Service UUID
+    note: >-
+      Not a GATT service. The UUID is carried only in Service Data AD structures in periodic
+      advertising, followed by the BASE (BAP Section 3.7.2.2). No characteristics are defined.
+
+  "1852":   # Broadcast Audio Announcement: advertising-only UUID defined in BAP
+    spec:
+      titles: [Basic Audio Profile]
+    extract: false
+    gatt_service: false
+    expect_text: Broadcast Audio Announcement Service UUID
+    note: >-
+      Not a GATT service. The UUID is carried only in Service Data AD structures in extended
+      advertising, followed by the Broadcast_ID (BAP Section 3.7.2.1). No characteristics are defined.
+
+  "1855":   # TMAS is defined in TMAP section 4; TMAP has other tables with characteristic columns
+    spec:
+      titles: [Telephony and Media Audio Profile]
+      label: "{title} v{version}, Section 4 (TMAS)"
+    table:
+      caption: TMAS characteristic
+
+  "1856":   # Public Broadcast Announcement: advertising-only UUID defined in PBP
+    spec:
+      titles: [Public Broadcast Profile]
+    extract: false
+    gatt_service: false
+    expect_text: Public Broadcast Announcement Service UUID
+    note: >-
+      Not a GATT service. The UUID is carried only in a Service Data AD structure in extended
+      advertising (PBP Section 4). No characteristics are defined.
+
+  "1858":   # GMAS is defined in GMAP section 4
+    spec:
+      titles: [Gaming Audio Profile]
+      label: "{title} v{version}, Section 4 (GMAS)"
+    table:
+      caption: GMAS characteristics
+
+  "185C":   # HID ISO Service is defined in HOGP v1.2 section 6
+    spec:
+      titles: [HID over GATT Profile]
+      label: "{title} v{version}, Section 6 (HID ISO Service)"
+    table:
+      caption: HID ISO Service characteristics
+
+  # --- Category rows expanded from SIG permitted-characteristics lists -----------------------
+  "181A":   # ESS Table 3.1 has one generic "ESS Characteristic" row (C.1: at least one exposed)
+    placeholders:
+      ESS Characteristic: {}
+    note: >-
+      ESS Table 3.1 uses a generic "ESS Characteristic" row; the permitted ESS Characteristics come
+      from the SIG permitted-characteristics list for this service.
+
+  "181C":   # UDS Table 3.1 has one generic "UDS Characteristics" row (O)
+    placeholders:
+      UDS Characteristics: {}
+    note: >-
+      UDS Table 3.1 uses a generic "UDS Characteristics" row (optional); the permitted UDS
+      Characteristics come from the SIG permitted-characteristics list for this service.
+
+  "185A":   # IMDS "IMD Measurement" (M) has no UUID of its own; it is realized by permitted types
+    placeholders:
+      IMD Measurement:
+        requirement: conditional
+        condition: >-
+          "IMD Measurement" (M): IMDS shall expose at least one IMD Measurement characteristic whose
+          UUID is one of the permitted IMD Measurement types. Multiple instances permitted.
+    note: >-
+      IMDS Table 3.1 row "IMD Measurement" has no UUID of its own; it is realized by the permitted
+      characteristic types in the SIG permitted-characteristics list for this service.
+
+  "185D":   # CWS permitted list names sensor types carried in a descriptor, not characteristics
+    permitted: ignore
+    note: >-
+      At least one Cookware Sensor Data characteristic shall be exposed (one per sensor). The sensor
+      types permitted for it (SIG permitted-characteristics list for this service) are identified
+      through the UUID field of its Sensor Info descriptor; they are not separate characteristics.
+
+  # --- Characteristics missing from Assigned Numbers ------------------------------------------
+  "1815":   # AIOS Digital/Analog UUIDs are no longer listed in Assigned Numbers
+    manual_uuids:
+      Digital:
+        uuid: "2A56"
+        flag: >-
+          UUID not confirmed: "Digital" is not listed in the current Bluetooth SIG Assigned Numbers
+          (checked editions dated 2023-12-20 and 2026-09-18, and characteristic_uuids.yaml), and AIOS
+          v1.0 does not state the UUID. 0x2A56 is the historically assigned value
+          (org.bluetooth.characteristic.digital), found only in secondary sources.
+      Analog:
+        uuid: "2A58"
+        flag: >-
+          UUID not confirmed: "Analog" is not listed in the current Bluetooth SIG Assigned Numbers
+          (checked editions dated 2023-12-20 and 2026-09-18, and characteristic_uuids.yaml), and AIOS
+          v1.0 does not state the UUID. 0x2A58 is the historically assigned value
+          (org.bluetooth.characteristic.analog), found only in secondary sources.
+    requirements:   # the table lists C.1, C.3-C.5; only C.1 is about presence, the rest constrain properties
+      Digital:
+        requirement: conditional
+        condition: At least one instance of either Digital or Analog characteristics shall be supported. Multiple instances permitted.
+      Analog:
+        requirement: conditional
+        condition: At least one instance of either Digital or Analog characteristics shall be supported. Multiple instances permitted.
+      Aggregate:
+        requirement: optional
+        condition: Optional; only one instance of the Aggregate characteristic shall exist if supported.
+    note: The Digital and Analog characteristic UUIDs could not be confirmed against a current primary source.
+
+  "183F":   # ETS names its characteristic "Current Elapsed Time"; no UUID by that name exists
+    manual_uuids:
+      Current Elapsed Time:
+        uuid: "2BF2"
+        name: Elapsed Time
+        flag: >-
+          UUID inferred, not stated: ETS v1.0 names this characteristic "Current Elapsed Time" but does
+          not give its UUID, and Assigned Numbers has no entry by that name. 0x2BF2 "Elapsed Time" is
+          the only corresponding assigned characteristic, but its GSS structure is 9 octets while ETS
+          Table 3.2 defines an 11-octet value (Elapsed Time + Clock Status + Clock Capabilities).
+    note: ETS defines one characteristic; its UUID could not be confirmed directly.
+
+  # --- Included services ------------------------------------------------------------------------
+  "1844":   # VCS section 2.2
+    included:
+      - uuid: "1845"
+        requirement: optional
+        condition: VCS may include zero or more instances of VOCS.
+        expect_text: VCS may include zero or more instances of VOCS
+      - uuid: "1843"
+        requirement: optional
+        condition: VCS may include zero or more instances of AICS.
+        expect_text: zero or more instances of AICS
+
+  "184D":   # MICS section 2.2
+    included:
+      - uuid: "1843"
+        requirement: optional
+        condition: MICS may include zero or more instances of AICS.
+        expect_text: This service may include zero or more instances of AICS
+
+  "1848":   # MCS section 2.3
+    included:
+      - uuid: "1825"
+        requirement: conditional
+        condition: >-
+          If any Object ID characteristic (Media Player Icon, Current Track Segments, Current Track,
+          Next Track, Parent Group, Current Group, Search Results) is exposed, OTS shall be instantiated
+          as a «Secondary Service» and included.
+        expect_text: shall be instantiated as a «Secondary Service» and shall be included in MCS or GMCS
+
+  "1853":   # CAS has no characteristics; it includes CSIS when part of a Coordinated Set
+    extract: false
+    expect_text: There are no characteristics in CAS.
+    included:
+      - uuid: "1846"
+        requirement: conditional
+        condition: >-
+          If the device is a member of a Coordinated Set, the CAS instance shall include the CSIS
+          instance that identifies the Coordinated Set; no more than one CSIS instance may be included.
+        expect_text: the CAS instance shall include the CSIS instance that identifies the Coordinated Set as an included service
+
+  "184B":   # TBS section 2.2 explicitly includes nothing
+    note: 'TBS Section 2.2: "No additional services are included in this service."'
+
+  # --- Notes on as-published oddities -----------------------------------------------------------
+  "1840":
+    note: GHSS Table 3.1 lists Health Sensor Features as "O" (optional); reproduced as published.
+
+  "1843":
+    note: AICS shall only be instantiated as an included service (e.g., included by VCS or MICS).
+
+  "1845":
+    note: VOCS shall only be instantiated as an included service (e.g., included by VCS).
