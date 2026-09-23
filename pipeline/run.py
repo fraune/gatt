@@ -63,7 +63,7 @@ def main(argv=None):
     parser.add_argument(
         "--reference",
         type=Path,
-        help="reference JSON for the diff step (default: the previous run's output, build/previous_gatt_services.json)",
+        help="reference JSON for the diff step (default: the previous run's output, build/previous_gatt_catalog.json)",
     )
     args = parser.parse_args(argv)
 

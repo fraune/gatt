@@ -1,18 +1,19 @@
-"""Step 8: validate the candidate dataset, then publish it to output/gatt_services.json.
+"""Step 8: validate the candidate catalog, then publish it to output/gatt_catalog.json.
 
 Fails the run (non-zero exit, output/ left untouched) if any check fails:
-  - referential integrity: every characteristicRefs uuid exists in `characteristics`, every
-    includedServices uuid exists in `services`
-  - registries: unique, well-formed UUIDs and non-empty names free of markup
-  - exactly one serviceDefinition per service in the registry, and none for unknown services
+  - referential integrity: every characteristicRefs key exists in `characteristics`, every
+    includedServices key exists in `services`
+  - no duplicate keys anywhere in the file (JSON parsers would silently keep the last one)
+  - every UUID key is 4 uppercase hex digits; registry names are non-empty and free of markup
+  - serviceDefinitions has exactly the same keys as the services registry
   - requirement is mandatory | optional | conditional; condition present iff conditional
-  - verificationStatus is verified | unverified; unverified definitions have empty lists and notes
+  - verificationStatus is verified | unverified; unverified definitions have empty maps and notes
   - no unexpected keys (catches schema drift)
 
-On success the previous output is snapshotted to build/previous_gatt_services.json (for the diff
-step) and the candidate is copied to output/gatt_services.json.
+On success the previous output is snapshotted to build/previous_gatt_catalog.json (for the diff
+step) and the candidate is copied to output/gatt_catalog.json.
 
-Outputs: output/gatt_services.json, build/validation.md
+Outputs: output/gatt_catalog.json, build/validation.md
 """
 
 import json
@@ -21,6 +22,7 @@ import shutil
 
 from ..context import PipelineError
 
+SCHEMA_VERSION = "3.0"
 UUID16_RE = re.compile(r"^[0-9A-F]{4}$")
 # LaTeX-style markup leaking from the Assigned Numbers YAML (see s01 clean_name).
 MARKUP_RE = re.compile(r"[\\{}]")
@@ -29,10 +31,8 @@ STATUSES = {"verified", "unverified"}
 KEYS = {
     "top": ({"metadata", "characteristics", "services", "serviceDefinitions"}, set()),
     "metadata": ({"generatedAt", "primarySource", "schemaVersion"}, set()),
-    "registry": ({"uuid", "name"}, set()),
     "definition": (
         {
-            "uuid",
             "specification",
             "specificationUrl",
             "verificationStatus",
@@ -41,8 +41,23 @@ KEYS = {
         },
         {"verificationNotes"},
     ),
-    "ref": ({"uuid", "requirement"}, {"condition"}),
+    "entry": ({"requirement"}, {"condition"}),
 }
+
+
+class DuplicateKeys:
+    """object_pairs_hook that records duplicate keys instead of silently dropping them."""
+
+    def __init__(self):
+        self.duplicates = []
+
+    def __call__(self, pairs):
+        seen = {}
+        for key, value in pairs:
+            if key in seen:
+                self.duplicates.append(key)
+            seen[key] = value
+        return seen
 
 
 def _check_keys(obj, kind, where, errors):
@@ -58,107 +73,103 @@ def _check_keys(obj, kind, where, errors):
     return not missing
 
 
-def _check_registry(items, label, errors):
-    seen = set()
-    for i, item in enumerate(items):
-        where = f"{label}[{i}]"
-        if not _check_keys(item, "registry", where, errors):
-            continue
-        if not UUID16_RE.match(str(item["uuid"])):
-            errors.append(f"{where}: malformed uuid {item['uuid']!r}")
-        if item["uuid"] in seen:
-            errors.append(f"{where}: duplicate uuid {item['uuid']}")
-        seen.add(item["uuid"])
-        if not str(item["name"]).strip():
-            errors.append(f"{where}: empty name")
-        elif MARKUP_RE.search(str(item["name"])):
-            errors.append(f"{where}: name contains markup: {item['name']!r}")
-    return seen
+def _check_uuid_map(obj, where, errors):
+    if not isinstance(obj, dict):
+        errors.append(f"{where}: expected an object keyed by UUID")
+        return {}
+    for key in obj:
+        if not UUID16_RE.match(key):
+            errors.append(f"{where}: malformed UUID key {key!r}")
+    return obj
 
 
-def _check_requirement(ref, where, errors):
-    req = ref.get("requirement")
+def _check_registry(registry, label, errors):
+    registry = _check_uuid_map(registry, label, errors)
+    for uuid, name in registry.items():
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"{label}.{uuid}: name must be a non-empty string")
+        elif MARKUP_RE.search(name):
+            errors.append(f"{label}.{uuid}: name contains markup: {name!r}")
+    return set(registry)
+
+
+def _check_entry(entry, where, errors):
+    if not _check_keys(entry, "entry", where, errors):
+        return
+    req = entry["requirement"]
     if req not in REQUIREMENTS:
         errors.append(f"{where}: invalid requirement {req!r}")
-    has_condition = bool(str(ref.get("condition", "")).strip())
+    has_condition = bool(str(entry.get("condition", "")).strip())
     if req == "conditional" and not has_condition:
         errors.append(f"{where}: conditional without a condition")
-    if req != "conditional" and "condition" in ref:
+    if req != "conditional" and "condition" in entry:
         errors.append(f"{where}: condition present on a {req} entry")
 
 
-def validate(dataset):
-    errors = []
-    if not _check_keys(dataset, "top", "dataset", errors):
+def validate(dataset, duplicate_keys=()):
+    errors = [f"duplicate key {k!r} in file" for k in duplicate_keys]
+    if not _check_keys(dataset, "top", "catalog", errors):
         return errors
     _check_keys(dataset["metadata"], "metadata", "metadata", errors)
-    if dataset["metadata"].get("schemaVersion") != "2.0":
+    version = dataset["metadata"].get("schemaVersion")
+    if version != SCHEMA_VERSION:
         errors.append(
-            f"metadata.schemaVersion is {dataset['metadata'].get('schemaVersion')!r}, expected '2.0'"
+            f"metadata.schemaVersion is {version!r}, expected {SCHEMA_VERSION!r}"
         )
     char_ids = _check_registry(dataset["characteristics"], "characteristics", errors)
     svc_ids = _check_registry(dataset["services"], "services", errors)
 
-    defined = set()
-    for i, d in enumerate(dataset["serviceDefinitions"]):
-        where = (
-            f"serviceDefinitions[{i}] ({d.get('uuid') if isinstance(d, dict) else '?'})"
-        )
+    definitions = _check_uuid_map(
+        dataset["serviceDefinitions"], "serviceDefinitions", errors
+    )
+    for uuid in sorted(svc_ids - definitions.keys()):
+        errors.append(f"services.{uuid} has no serviceDefinition")
+    for uuid in sorted(definitions.keys() - svc_ids):
+        errors.append(f"serviceDefinitions.{uuid}: not in the services registry")
+
+    for uuid, d in definitions.items():
+        where = f"serviceDefinitions.{uuid}"
         if not _check_keys(d, "definition", where, errors):
             continue
-        if d["uuid"] not in svc_ids:
-            errors.append(
-                f"{where}: definition for a service not in the services registry"
-            )
-        if d["uuid"] in defined:
-            errors.append(f"{where}: duplicate definition")
-        defined.add(d["uuid"])
-
         status = d["verificationStatus"]
         if status not in STATUSES:
             errors.append(f"{where}: invalid verificationStatus {status!r}")
         if status == "unverified":
             if d["characteristicRefs"] or d["includedServices"]:
-                errors.append(f"{where}: unverified definition must have empty lists")
+                errors.append(f"{where}: unverified definition must have empty maps")
             if not str(d.get("verificationNotes", "")).strip():
                 errors.append(f"{where}: unverified definition needs verificationNotes")
         if status == "verified" and not d["specificationUrl"]:
             errors.append(f"{where}: verified definition without a specificationUrl")
 
-        seen_refs = set()
-        for j, ref in enumerate(d["characteristicRefs"]):
-            rw = f"{where}.characteristicRefs[{j}]"
-            if not _check_keys(ref, "ref", rw, errors):
-                continue
-            if ref["uuid"] not in char_ids:
+        refs = _check_uuid_map(
+            d["characteristicRefs"], f"{where}.characteristicRefs", errors
+        )
+        for ref_uuid, entry in refs.items():
+            rw = f"{where}.characteristicRefs.{ref_uuid}"
+            if ref_uuid not in char_ids:
                 errors.append(
-                    f"{rw}: dangling reference {ref['uuid']} (not in characteristics registry)"
+                    f"{rw}: dangling reference (not in characteristics registry)"
                 )
-            if ref["uuid"] in seen_refs:
-                errors.append(f"{rw}: duplicate reference {ref['uuid']}")
-            seen_refs.add(ref["uuid"])
-            _check_requirement(ref, rw, errors)
+            _check_entry(entry, rw, errors)
 
-        for j, inc in enumerate(d["includedServices"]):
-            iw = f"{where}.includedServices[{j}]"
-            if not _check_keys(inc, "ref", iw, errors):
-                continue
-            if inc["uuid"] not in svc_ids:
-                errors.append(
-                    f"{iw}: dangling reference {inc['uuid']} (not in services registry)"
-                )
-            if inc["uuid"] == d["uuid"]:
+        included = _check_uuid_map(
+            d["includedServices"], f"{where}.includedServices", errors
+        )
+        for inc_uuid, entry in included.items():
+            iw = f"{where}.includedServices.{inc_uuid}"
+            if inc_uuid not in svc_ids:
+                errors.append(f"{iw}: dangling reference (not in services registry)")
+            if inc_uuid == uuid:
                 errors.append(f"{iw}: service includes itself")
-            _check_requirement(inc, iw, errors)
-
-    for missing in sorted(svc_ids - defined):
-        errors.append(f"services registry entry {missing} has no serviceDefinition")
+            _check_entry(entry, iw, errors)
     return errors
 
 
 def run(ctx):
-    dataset = json.loads(ctx.candidate_output.read_text())
-    errors = validate(dataset)
+    hook = DuplicateKeys()
+    dataset = json.loads(ctx.candidate_output.read_text(), object_pairs_hook=hook)
+    errors = validate(dataset, hook.duplicates)
     report = ctx.build_dir / "validation.md"
     if errors:
         report.write_text(
@@ -167,11 +178,13 @@ def run(ctx):
         for e in errors[:20]:
             ctx.log(f"ERROR {e}")
         raise PipelineError(
-            f"validation failed with {len(errors)} error(s); output not published (see {report.relative_to(ctx.root)})"
+            f"validation failed with {len(errors)} error(s); output not published "
+            f"(see {report.relative_to(ctx.root)})"
         )
 
-    n_refs = sum(len(d["characteristicRefs"]) for d in dataset["serviceDefinitions"])
-    n_inc = sum(len(d["includedServices"]) for d in dataset["serviceDefinitions"])
+    definitions = dataset["serviceDefinitions"].values()
+    n_refs = sum(len(d["characteristicRefs"]) for d in definitions)
+    n_inc = sum(len(d["includedServices"]) for d in definitions)
     report.write_text(
         f"# Validation passed\n\n- {len(dataset['characteristics'])} characteristics, "
         f"{len(dataset['services'])} services, {len(dataset['serviceDefinitions'])} definitions\n"

@@ -48,17 +48,17 @@ class Context:
 
     @property
     def output_path(self):
-        return self.output_dir / "gatt_services.json"
+        return self.output_dir / "gatt_catalog.json"
 
     @property
     def candidate_output(self):
         """Dataset written by the build step; published to output_path only if validation passes."""
-        return self.build_dir / "gatt_services.candidate.json"
+        return self.build_dir / "gatt_catalog.candidate.json"
 
     @property
     def previous_output(self):
-        """Snapshot of output/gatt_services.json taken by the build step before it overwrites it."""
-        return self.build_dir / "previous_gatt_services.json"
+        """Snapshot of the published output taken by the validate step before it overwrites it."""
+        return self.build_dir / "previous_gatt_catalog.json"
 
     @property
     def reference_path(self):

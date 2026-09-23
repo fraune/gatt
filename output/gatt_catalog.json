@@ -1,0 +1,2796 @@
+{
+  "metadata": {
+    "generatedAt": "2026-09-23",
+    "primarySource": "Bluetooth SIG Assigned Numbers, bluetooth-SIG/public repository commit bf121603e6a1 (2026-09-23)",
+    "schemaVersion": "3.0"
+  },
+  "characteristics": {
+    "2A00": "Device Name",
+    "2A01": "Appearance",
+    "2A02": "Peripheral Privacy Flag",
+    "2A03": "Reconnection Address",
+    "2A04": "Peripheral Preferred Connection Parameters",
+    "2A05": "Service Changed",
+    "2A06": "Alert Level",
+    "2A07": "Tx Power Level",
+    "2A08": "Date Time",
+    "2A09": "Day of Week",
+    "2A0A": "Day Date Time",
+    "2A0C": "Exact Time 256",
+    "2A0D": "DST Offset",
+    "2A0E": "Time Zone",
+    "2A0F": "Local Time Information",
+    "2A11": "Time with DST",
+    "2A12": "Time Accuracy",
+    "2A13": "Time Source",
+    "2A14": "Reference Time Information",
+    "2A16": "Time Update Control Point",
+    "2A17": "Time Update State",
+    "2A18": "Glucose Measurement",
+    "2A19": "Battery Level",
+    "2A1C": "Temperature Measurement",
+    "2A1D": "Temperature Type",
+    "2A1E": "Intermediate Temperature",
+    "2A21": "Measurement Interval",
+    "2A22": "Boot Keyboard Input Report",
+    "2A23": "System ID",
+    "2A24": "Model Number String",
+    "2A25": "Serial Number String",
+    "2A26": "Firmware Revision String",
+    "2A27": "Hardware Revision String",
+    "2A28": "Software Revision String",
+    "2A29": "Manufacturer Name String",
+    "2A2A": "IEEE 11073-20601 Regulatory Certification Data List",
+    "2A2B": "Current Time",
+    "2A2C": "Magnetic Declination",
+    "2A31": "Scan Refresh",
+    "2A32": "Boot Keyboard Output Report",
+    "2A33": "Boot Mouse Input Report",
+    "2A34": "Glucose Measurement Context",
+    "2A35": "Blood Pressure Measurement",
+    "2A36": "Intermediate Cuff Pressure",
+    "2A37": "Heart Rate Measurement",
+    "2A38": "Body Sensor Location",
+    "2A39": "Heart Rate Control Point",
+    "2A3F": "Alert Status",
+    "2A40": "Ringer Control Point",
+    "2A41": "Ringer Setting",
+    "2A42": "Alert Category ID Bit Mask",
+    "2A43": "Alert Category ID",
+    "2A44": "Alert Notification Control Point",
+    "2A45": "Unread Alert Status",
+    "2A46": "New Alert",
+    "2A47": "Supported New Alert Category",
+    "2A48": "Supported Unread Alert Category",
+    "2A49": "Blood Pressure Feature",
+    "2A4A": "HID Information",
+    "2A4B": "Report Map",
+    "2A4C": "HID Control Point",
+    "2A4D": "Report",
+    "2A4E": "Protocol Mode",
+    "2A4F": "Scan Interval Window",
+    "2A50": "PnP ID",
+    "2A51": "Glucose Feature",
+    "2A52": "Record Access Control Point",
+    "2A53": "RSC Measurement",
+    "2A54": "RSC Feature",
+    "2A55": "SC Control Point",
+    "2A5A": "Aggregate",
+    "2A5B": "CSC Measurement",
+    "2A5C": "CSC Feature",
+    "2A5D": "Sensor Location",
+    "2A5E": "PLX Spot-Check Measurement",
+    "2A5F": "PLX Continuous Measurement",
+    "2A60": "PLX Features",
+    "2A63": "Cycling Power Measurement",
+    "2A64": "Cycling Power Vector",
+    "2A65": "Cycling Power Feature",
+    "2A66": "Cycling Power Control Point",
+    "2A67": "Location and Speed",
+    "2A68": "Navigation",
+    "2A69": "Position Quality",
+    "2A6A": "LN Feature",
+    "2A6B": "LN Control Point",
+    "2A6C": "Elevation",
+    "2A6D": "Pressure",
+    "2A6E": "Temperature",
+    "2A6F": "Humidity",
+    "2A70": "True Wind Speed",
+    "2A71": "True Wind Direction",
+    "2A72": "Apparent Wind Speed",
+    "2A73": "Apparent Wind Direction",
+    "2A74": "Gust Factor",
+    "2A75": "Pollen Concentration",
+    "2A76": "UV Index",
+    "2A77": "Irradiance",
+    "2A78": "Rainfall",
+    "2A79": "Wind Chill",
+    "2A7A": "Heat Index",
+    "2A7B": "Dew Point",
+    "2A7D": "Descriptor Value Changed",
+    "2A7E": "Aerobic Heart Rate Lower Limit",
+    "2A7F": "Aerobic Threshold",
+    "2A80": "Age",
+    "2A81": "Anaerobic Heart Rate Lower Limit",
+    "2A82": "Anaerobic Heart Rate Upper Limit",
+    "2A83": "Anaerobic Threshold",
+    "2A84": "Aerobic Heart Rate Upper Limit",
+    "2A85": "Date of Birth",
+    "2A86": "Date of Threshold Assessment",
+    "2A87": "Email Address",
+    "2A88": "Fat Burn Heart Rate Lower Limit",
+    "2A89": "Fat Burn Heart Rate Upper Limit",
+    "2A8A": "First Name",
+    "2A8B": "Five Zone Heart Rate Limits",
+    "2A8C": "Gender",
+    "2A8D": "Heart Rate Max",
+    "2A8E": "Height",
+    "2A8F": "Hip Circumference",
+    "2A90": "Last Name",
+    "2A91": "Maximum Recommended Heart Rate",
+    "2A92": "Resting Heart Rate",
+    "2A93": "Sport Type for Aerobic and Anaerobic Thresholds",
+    "2A94": "Three Zone Heart Rate Limits",
+    "2A95": "Two Zone Heart Rate Limits",
+    "2A96": "VO2 Max",
+    "2A97": "Waist Circumference",
+    "2A98": "Weight",
+    "2A99": "Database Change Increment",
+    "2A9A": "User Index",
+    "2A9B": "Body Composition Feature",
+    "2A9C": "Body Composition Measurement",
+    "2A9D": "Weight Measurement",
+    "2A9E": "Weight Scale Feature",
+    "2A9F": "User Control Point",
+    "2AA0": "Magnetic Flux Density - 2D",
+    "2AA1": "Magnetic Flux Density - 3D",
+    "2AA2": "Language",
+    "2AA3": "Barometric Pressure Trend",
+    "2AA4": "Bond Management Control Point",
+    "2AA5": "Bond Management Feature",
+    "2AA6": "Central Address Resolution",
+    "2AA7": "CGM Measurement",
+    "2AA8": "CGM Feature",
+    "2AA9": "CGM Status",
+    "2AAA": "CGM Session Start Time",
+    "2AAB": "CGM Session Run Time",
+    "2AAC": "CGM Specific Ops Control Point",
+    "2AAD": "Indoor Positioning Configuration",
+    "2AAE": "Latitude",
+    "2AAF": "Longitude",
+    "2AB0": "Local North Coordinate",
+    "2AB1": "Local East Coordinate",
+    "2AB2": "Floor Number",
+    "2AB3": "Altitude",
+    "2AB4": "Uncertainty",
+    "2AB5": "Location Name",
+    "2AB6": "URI",
+    "2AB7": "HTTP Headers",
+    "2AB8": "HTTP Status Code",
+    "2AB9": "HTTP Entity Body",
+    "2ABA": "HTTP Control Point",
+    "2ABB": "HTTPS Security",
+    "2ABC": "TDS Control Point",
+    "2ABD": "OTS Feature",
+    "2ABE": "Object Name",
+    "2ABF": "Object Type",
+    "2AC0": "Object Size",
+    "2AC1": "Object First-Created",
+    "2AC2": "Object Last-Modified",
+    "2AC3": "Object ID",
+    "2AC4": "Object Properties",
+    "2AC5": "Object Action Control Point",
+    "2AC6": "Object List Control Point",
+    "2AC7": "Object List Filter",
+    "2AC8": "Object Changed",
+    "2AC9": "Resolvable Private Address Only",
+    "2ACC": "Fitness Machine Feature",
+    "2ACD": "Treadmill Data",
+    "2ACE": "Cross Trainer Data",
+    "2ACF": "Step Climber Data",
+    "2AD0": "Stair Climber Data",
+    "2AD1": "Rower Data",
+    "2AD2": "Indoor Bike Data",
+    "2AD3": "Training Status",
+    "2AD4": "Supported Speed Range",
+    "2AD5": "Supported Inclination Range",
+    "2AD6": "Supported Resistance Level Range",
+    "2AD7": "Supported Heart Rate Range",
+    "2AD8": "Supported Power Range",
+    "2AD9": "Fitness Machine Control Point",
+    "2ADA": "Fitness Machine Status",
+    "2ADB": "Mesh Provisioning Data In",
+    "2ADC": "Mesh Provisioning Data Out",
+    "2ADD": "Mesh Proxy Data In",
+    "2ADE": "Mesh Proxy Data Out",
+    "2AE0": "Average Current",
+    "2AE1": "Average Voltage",
+    "2AE2": "Boolean",
+    "2AE3": "Chromatic Distance from Planckian",
+    "2AE4": "Chromaticity Coordinates",
+    "2AE5": "Chromaticity in CCT and Duv Values",
+    "2AE6": "Chromaticity Tolerance",
+    "2AE7": "CIE 13.3-1995 Color Rendering Index",
+    "2AE8": "Coefficient",
+    "2AE9": "Correlated Color Temperature",
+    "2AEA": "Count 16",
+    "2AEB": "Count 24",
+    "2AEC": "Country Code",
+    "2AED": "Date UTC",
+    "2AEE": "Electric Current",
+    "2AEF": "Electric Current Range",
+    "2AF0": "Electric Current Specification",
+    "2AF1": "Electric Current Statistics",
+    "2AF2": "Energy",
+    "2AF3": "Energy in a Period of Day",
+    "2AF4": "Event Statistics",
+    "2AF5": "Fixed String 16",
+    "2AF6": "Fixed String 24",
+    "2AF7": "Fixed String 36",
+    "2AF8": "Fixed String 8",
+    "2AF9": "Generic Level",
+    "2AFA": "Global Trade Item Number",
+    "2AFB": "Illuminance",
+    "2AFC": "Luminous Efficacy",
+    "2AFD": "Luminous Energy",
+    "2AFE": "Luminous Exposure",
+    "2AFF": "Luminous Flux",
+    "2B00": "Luminous Flux Range",
+    "2B01": "Luminous Intensity",
+    "2B02": "Mass Flow",
+    "2B03": "Perceived Lightness",
+    "2B04": "Percentage 8",
+    "2B05": "Power",
+    "2B06": "Power Specification",
+    "2B07": "Relative Runtime in a Current Range",
+    "2B08": "Relative Runtime in a Generic Level Range",
+    "2B09": "Relative Value in a Voltage Range",
+    "2B0A": "Relative Value in an Illuminance Range",
+    "2B0B": "Relative Value in a Period of Day",
+    "2B0C": "Relative Value in a Temperature Range",
+    "2B0D": "Temperature 8",
+    "2B0E": "Temperature 8 in a Period of Day",
+    "2B0F": "Temperature 8 Statistics",
+    "2B10": "Temperature Range",
+    "2B11": "Temperature Statistics",
+    "2B12": "Time Decihour 8",
+    "2B13": "Time Exponential 8",
+    "2B14": "Time Hour 24",
+    "2B15": "Time Millisecond 24",
+    "2B16": "Time Second 16",
+    "2B17": "Time Second 8",
+    "2B18": "Voltage",
+    "2B19": "Voltage Specification",
+    "2B1A": "Voltage Statistics",
+    "2B1B": "Volume Flow",
+    "2B1C": "Chromaticity Coordinate",
+    "2B1D": "RC Feature",
+    "2B1E": "RC Settings",
+    "2B1F": "Reconnection Configuration Control Point",
+    "2B20": "IDD Status Changed",
+    "2B21": "IDD Status",
+    "2B22": "IDD Annunciation Status",
+    "2B23": "IDD Features",
+    "2B24": "IDD Status Reader Control Point",
+    "2B25": "IDD Command Control Point",
+    "2B26": "IDD Command Data",
+    "2B27": "IDD Record Access Control Point",
+    "2B28": "IDD History Data",
+    "2B29": "Client Supported Features",
+    "2B2A": "Database Hash",
+    "2B2B": "BSS Control Point",
+    "2B2C": "BSS Response",
+    "2B2D": "Emergency ID",
+    "2B2E": "Emergency Text",
+    "2B2F": "ACS Status",
+    "2B30": "ACS Data In",
+    "2B31": "ACS Data Out Notify",
+    "2B32": "ACS Data Out Indicate",
+    "2B33": "ACS Control Point",
+    "2B34": "Enhanced Blood Pressure Measurement",
+    "2B35": "Enhanced Intermediate Cuff Pressure",
+    "2B36": "Blood Pressure Record",
+    "2B37": "Registered User",
+    "2B38": "BR-EDR Handover Data",
+    "2B39": "Bluetooth SIG Data",
+    "2B3A": "Server Supported Features",
+    "2B3B": "Physical Activity Monitor Features",
+    "2B3C": "General Activity Instantaneous Data",
+    "2B3D": "General Activity Summary Data",
+    "2B3E": "CardioRespiratory Activity Instantaneous Data",
+    "2B3F": "CardioRespiratory Activity Summary Data",
+    "2B40": "Step Counter Activity Summary Data",
+    "2B41": "Sleep Activity Instantaneous Data",
+    "2B42": "Sleep Activity Summary Data",
+    "2B43": "Physical Activity Monitor Control Point",
+    "2B44": "Physical Activity Current Session",
+    "2B45": "Physical Activity Session Descriptor",
+    "2B46": "Preferred Units",
+    "2B47": "High Resolution Height",
+    "2B48": "Middle Name",
+    "2B49": "Stride Length",
+    "2B4A": "Handedness",
+    "2B4B": "Device Wearing Position",
+    "2B4C": "Four Zone Heart Rate Limits",
+    "2B4D": "High Intensity Exercise Threshold",
+    "2B4E": "Activity Goal",
+    "2B4F": "Sedentary Interval Notification",
+    "2B50": "Caloric Intake",
+    "2B51": "TMAP Role",
+    "2B77": "Audio Input State",
+    "2B78": "Gain Settings Attribute",
+    "2B79": "Audio Input Type",
+    "2B7A": "Audio Input Status",
+    "2B7B": "Audio Input Control Point",
+    "2B7C": "Audio Input Description",
+    "2B7D": "Volume State",
+    "2B7E": "Volume Control Point",
+    "2B7F": "Volume Flags",
+    "2B80": "Volume Offset State",
+    "2B81": "Audio Location",
+    "2B82": "Volume Offset Control Point",
+    "2B83": "Audio Output Description",
+    "2B84": "Set Identity Resolving Key",
+    "2B85": "Coordinated Set Size",
+    "2B86": "Set Member Lock",
+    "2B87": "Set Member Rank",
+    "2B88": "Encrypted Data Key Material",
+    "2B89": "Apparent Energy 32",
+    "2B8A": "Apparent Power",
+    "2B8B": "Live Health Observations",
+    "2B8C": "CO₂ Concentration",
+    "2B8D": "Cosine of the Angle",
+    "2B8E": "Device Time Feature",
+    "2B8F": "Device Time Parameters",
+    "2B90": "Device Time",
+    "2B91": "Device Time Control Point",
+    "2B92": "Time Change Log Data",
+    "2B93": "Media Player Name",
+    "2B94": "Media Player Icon Object ID",
+    "2B95": "Media Player Icon URL",
+    "2B96": "Track Changed",
+    "2B97": "Track Title",
+    "2B98": "Track Duration",
+    "2B99": "Track Position",
+    "2B9A": "Playback Speed",
+    "2B9B": "Seeking Speed",
+    "2B9C": "Current Track Segments Object ID",
+    "2B9D": "Current Track Object ID",
+    "2B9E": "Next Track Object ID",
+    "2B9F": "Parent Group Object ID",
+    "2BA0": "Current Group Object ID",
+    "2BA1": "Playing Order",
+    "2BA2": "Playing Orders Supported",
+    "2BA3": "Media State",
+    "2BA4": "Media Control Point",
+    "2BA5": "Media Control Point Opcodes Supported",
+    "2BA6": "Search Results Object ID",
+    "2BA7": "Search Control Point",
+    "2BA8": "Energy 32",
+    "2BAD": "Constant Tone Extension Enable",
+    "2BAE": "Advertising Constant Tone Extension Minimum Length",
+    "2BAF": "Advertising Constant Tone Extension Minimum Transmit Count",
+    "2BB0": "Advertising Constant Tone Extension Transmit Duration",
+    "2BB1": "Advertising Constant Tone Extension Interval",
+    "2BB2": "Advertising Constant Tone Extension PHY",
+    "2BB3": "Bearer Provider Name",
+    "2BB4": "Bearer UCI",
+    "2BB5": "Bearer Technology",
+    "2BB6": "Bearer URI Schemes Supported List",
+    "2BB7": "Bearer Signal Strength",
+    "2BB8": "Bearer Signal Strength Reporting Interval",
+    "2BB9": "Bearer List Current Calls",
+    "2BBA": "Content Control ID",
+    "2BBB": "Status Flags",
+    "2BBC": "Incoming Call Target Bearer URI",
+    "2BBD": "Call State",
+    "2BBE": "Call Control Point",
+    "2BBF": "Call Control Point Optional Opcodes",
+    "2BC0": "Termination Reason",
+    "2BC1": "Incoming Call",
+    "2BC2": "Call Friendly Name",
+    "2BC3": "Mute",
+    "2BC4": "Sink ASE",
+    "2BC5": "Source ASE",
+    "2BC6": "ASE Control Point",
+    "2BC7": "Broadcast Audio Scan Control Point",
+    "2BC8": "Broadcast Receive State",
+    "2BC9": "Sink PAC",
+    "2BCA": "Sink Audio Locations",
+    "2BCB": "Source PAC",
+    "2BCC": "Source Audio Locations",
+    "2BCD": "Available Audio Contexts",
+    "2BCE": "Supported Audio Contexts",
+    "2BCF": "Ammonia Concentration",
+    "2BD0": "Carbon Monoxide Concentration",
+    "2BD1": "Methane Concentration",
+    "2BD2": "Nitrogen Dioxide Concentration",
+    "2BD3": "Non-Methane Volatile Organic Compounds Concentration",
+    "2BD4": "Ozone Concentration",
+    "2BD5": "Particulate Matter - PM1 Concentration",
+    "2BD6": "Particulate Matter - PM2.5 Concentration",
+    "2BD7": "Particulate Matter - PM10 Concentration",
+    "2BD8": "Sulfur Dioxide Concentration",
+    "2BD9": "Sulfur Hexafluoride Concentration",
+    "2BDA": "Hearing Aid Features",
+    "2BDB": "Hearing Aid Preset Control Point",
+    "2BDC": "Active Preset Index",
+    "2BDD": "Stored Health Observations",
+    "2BDE": "Fixed String 64",
+    "2BDF": "High Temperature",
+    "2BE0": "High Voltage",
+    "2BE1": "Light Distribution",
+    "2BE2": "Light Output",
+    "2BE3": "Light Source Type",
+    "2BE4": "Noise",
+    "2BE5": "Relative Runtime in a Correlated Color Temperature Range",
+    "2BE6": "Time Second 32",
+    "2BE7": "VOC Concentration",
+    "2BE8": "Voltage Frequency",
+    "2BE9": "Battery Critical Status",
+    "2BEA": "Battery Health Status",
+    "2BEB": "Battery Health Information",
+    "2BEC": "Battery Information",
+    "2BED": "Battery Level Status",
+    "2BEE": "Battery Time Status",
+    "2BEF": "Estimated Service Date",
+    "2BF0": "Battery Energy Status",
+    "2BF1": "Observation Schedule Changed",
+    "2BF2": "Elapsed Time",
+    "2BF3": "Health Sensor Features",
+    "2BF4": "GHS Control Point",
+    "2BF5": "LE GATT Security Levels",
+    "2BF6": "ESL Address",
+    "2BF7": "AP Sync Key Material",
+    "2BF8": "ESL Response Key Material",
+    "2BF9": "ESL Current Absolute Time",
+    "2BFA": "ESL Display Information",
+    "2BFB": "ESL Image Information",
+    "2BFC": "ESL Sensor Information",
+    "2BFD": "ESL LED Information",
+    "2BFE": "ESL Control Point",
+    "2BFF": "UDI for Medical Devices",
+    "2C00": "GMAP Role",
+    "2C01": "UGG Features",
+    "2C02": "UGT Features",
+    "2C03": "BGS Features",
+    "2C04": "BGR Features",
+    "2C05": "Percentage 8 Steps",
+    "2C06": "Acceleration",
+    "2C07": "Force",
+    "2C08": "Linear Position",
+    "2C09": "Rotational Speed",
+    "2C0A": "Length",
+    "2C0B": "Torque",
+    "2C0C": "IMD Status",
+    "2C0D": "IMDS Descriptor Value Changed",
+    "2C0E": "First Use Date",
+    "2C0F": "Life Cycle Data",
+    "2C10": "Work Cycle Data",
+    "2C11": "Service Cycle Data",
+    "2C12": "IMD Control",
+    "2C13": "IMD Historical Data",
+    "2C14": "RAS Features",
+    "2C15": "Real-time Ranging Data",
+    "2C16": "On-demand Ranging Data",
+    "2C17": "RAS Control Point",
+    "2C18": "Ranging Data Ready",
+    "2C19": "Ranging Data Overwritten",
+    "2C1A": "Coordinated Set Name",
+    "2C1B": "Humidity 8",
+    "2C1C": "Illuminance 16",
+    "2C1D": "Acceleration - 3D",
+    "2C1E": "Precise Acceleration - 3D",
+    "2C1F": "Acceleration Detection Status",
+    "2C20": "Door/Window Status",
+    "2C21": "Pushbutton Status 8",
+    "2C22": "Contact Status 8",
+    "2C23": "HID ISO Properties",
+    "2C24": "LE HID Operation Mode",
+    "2C25": "Cookware Description",
+    "2C26": "Recipe Control",
+    "2C27": "Recipe Parameters",
+    "2C28": "Cooking Step Status",
+    "2C29": "Cooking Zone Capabilities",
+    "2C2A": "Cooking Zone Desired Cooking Conditions",
+    "2C2B": "Cooking Zone Actual Cooking Conditions",
+    "2C2C": "Cookware Sensor Data",
+    "2C2D": "Cookware Sensor Aggregate",
+    "2C2E": "Cooking Temperature",
+    "2C2F": "Cooking Zone Perceived Power",
+    "2C30": "Kitchen Appliance Airflow",
+    "2C31": "Voice Assistant Name",
+    "2C32": "Voice Assistant UUID",
+    "2C33": "Voice Assistant Service Control Point",
+    "2C34": "Installed Location",
+    "2C35": "Voice Assistant Session State",
+    "2C36": "Voice Assistant Session Flag",
+    "2C37": "Voice Assistant Supported Languages",
+    "2C38": "Voice Assistant Supported Features",
+    "2C39": "HID SCI Mode",
+    "2C3A": "HID SCI Information",
+    "2C3B": "Tire Pressure",
+    "2C3C": "Tire Temperature",
+    "2C3D": "Tire Acceleration",
+    "2C3E": "TPMS Properties",
+    "2C3F": "TPMS Duty Cycle",
+    "2C40": "TPMS Position",
+    "2C41": "TPMS Signing Key",
+    "2C42": "Cookware Device ID"
+  },
+  "services": {
+    "1800": "Generic Access service",
+    "1801": "Generic Attribute service",
+    "1802": "Immediate Alert",
+    "1803": "Link Loss",
+    "1804": "Tx Power",
+    "1805": "Current Time",
+    "1806": "Reference Time Update",
+    "1807": "Next DST Change",
+    "1808": "Glucose",
+    "1809": "Health Thermometer",
+    "180A": "Device Information",
+    "180D": "Heart Rate",
+    "180E": "Phone Alert Status",
+    "180F": "Battery",
+    "1810": "Blood Pressure",
+    "1811": "Alert Notification",
+    "1812": "Human Interface Device",
+    "1813": "Scan Parameters",
+    "1814": "Running Speed and Cadence",
+    "1815": "Automation IO",
+    "1816": "Cycling Speed and Cadence",
+    "1818": "Cycling Power",
+    "1819": "Location and Navigation",
+    "181A": "Environmental Sensing",
+    "181B": "Body Composition",
+    "181C": "User Data",
+    "181D": "Weight Scale",
+    "181E": "Bond Management",
+    "181F": "Continuous Glucose Monitoring",
+    "1820": "Internet Protocol Support",
+    "1821": "Indoor Positioning",
+    "1822": "Pulse Oximeter",
+    "1823": "HTTP Proxy",
+    "1824": "Transport Discovery",
+    "1825": "Object Transfer",
+    "1826": "Fitness Machine",
+    "1827": "Mesh Provisioning",
+    "1828": "Mesh Proxy",
+    "1829": "Reconnection Configuration",
+    "183A": "Insulin Delivery",
+    "183B": "Binary Sensor",
+    "183C": "Emergency Configuration",
+    "183D": "Authorization Control",
+    "183E": "Physical Activity Monitor",
+    "183F": "Elapsed Time",
+    "1840": "Generic Health Sensor",
+    "1843": "Audio Input Control",
+    "1844": "Volume Control",
+    "1845": "Volume Offset Control",
+    "1846": "Coordinated Set Identification",
+    "1847": "Device Time",
+    "1848": "Media Control",
+    "1849": "Generic Media Control",
+    "184A": "Constant Tone Extension",
+    "184B": "Telephone Bearer",
+    "184C": "Generic Telephone Bearer",
+    "184D": "Microphone Control",
+    "184E": "Audio Stream Control",
+    "184F": "Broadcast Audio Scan",
+    "1850": "Published Audio Capabilities",
+    "1851": "Basic Audio Announcement",
+    "1852": "Broadcast Audio Announcement",
+    "1853": "Common Audio",
+    "1854": "Hearing Access",
+    "1855": "Telephony and Media Audio",
+    "1856": "Public Broadcast Announcement",
+    "1857": "Electronic Shelf Label",
+    "1858": "Gaming Audio",
+    "1859": "Mesh Proxy Solicitation",
+    "185A": "Industrial Measurement Device",
+    "185B": "Ranging",
+    "185C": "HID ISO",
+    "185D": "Cookware",
+    "185E": "Voice Assistant",
+    "185F": "Generic Voice Assistant",
+    "1860": "Tire Pressure Monitoring System"
+  },
+  "serviceDefinitions": {
+    "1800": {
+      "specification": "Bluetooth Core Specification v6.3, Vol 3, Part C (GAP), Section 12",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/host/generic-access-profile.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Requirements come from Core Table 12.2 and are per GAP role. This dataset combines the LE Peripheral and LE Central columns; BR/EDR and LE Broadcaster/Observer columns are not used.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A00": {
+          "requirement": "mandatory"
+        },
+        "2A01": {
+          "requirement": "mandatory"
+        },
+        "2A04": {
+          "requirement": "optional"
+        },
+        "2AA6": {
+          "requirement": "conditional",
+          "condition": "LE Peripheral: Optional if Link Layer privacy is supported, otherwise excluded; LE Central: Mandatory if Link Layer privacy is supported, otherwise excluded"
+        },
+        "2AC9": {
+          "requirement": "conditional",
+          "condition": "Optional if Link Layer privacy is supported, otherwise excluded"
+        },
+        "2B88": {
+          "requirement": "optional"
+        },
+        "2BF5": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1801": {
+      "specification": "Bluetooth Core Specification v6.3, Vol 3, Part G (GATT), Section 7",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v6.3/out/en/host/generic-attribute-profile--gatt-.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Requirements shown are the Server column of Core Table 7.1.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A05": {
+          "requirement": "conditional",
+          "condition": "Mandatory if service definitions on the server can be added, changed, or removed; otherwise excluded"
+        },
+        "2B29": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Database Hash and Service Changed characteristics are supported or if Enhanced ATT Bearer or Multiple Variable Length Notifications are supported; otherwise excluded"
+        },
+        "2B2A": {
+          "requirement": "optional"
+        },
+        "2B3A": {
+          "requirement": "conditional",
+          "condition": "Mandatory if any of the features in Table 7.11 are supported, otherwise optional"
+        }
+      }
+    },
+    "1802": {
+      "specification": "Immediate Alert Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/IAS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A06": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1803": {
+      "specification": "Link Loss Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/lls_v1-0-1_1761254007/LLS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A06": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1804": {
+      "specification": "Tx Power Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/TPS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A07": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1805": {
+      "specification": "Current Time Service v1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/CTS_v1.1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A2B": {
+          "requirement": "mandatory"
+        },
+        "2A0F": {
+          "requirement": "optional"
+        },
+        "2A14": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1806": {
+      "specification": "Reference Time Update Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/rtus-v1-0_1750971384/RTUS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A16": {
+          "requirement": "mandatory"
+        },
+        "2A17": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1807": {
+      "specification": "Next DST Change Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/NDCS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A11": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1808": {
+      "specification": "Glucose Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/GLS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A18": {
+          "requirement": "mandatory"
+        },
+        "2A34": {
+          "requirement": "optional"
+        },
+        "2A51": {
+          "requirement": "mandatory"
+        },
+        "2A52": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1809": {
+      "specification": "Health Thermometer Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/HTS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A1C": {
+          "requirement": "mandatory"
+        },
+        "2A1D": {
+          "requirement": "optional"
+        },
+        "2A1E": {
+          "requirement": "optional"
+        },
+        "2A21": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "180A": {
+      "specification": "Device Information Service v1.2",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/DIS_v1.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A29": {
+          "requirement": "optional"
+        },
+        "2A24": {
+          "requirement": "optional"
+        },
+        "2A25": {
+          "requirement": "optional"
+        },
+        "2A27": {
+          "requirement": "optional"
+        },
+        "2A26": {
+          "requirement": "optional"
+        },
+        "2A28": {
+          "requirement": "optional"
+        },
+        "2A23": {
+          "requirement": "optional"
+        },
+        "2A2A": {
+          "requirement": "optional"
+        },
+        "2A50": {
+          "requirement": "optional"
+        },
+        "2BFF": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "180D": {
+      "specification": "Heart Rate Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/HRS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A37": {
+          "requirement": "mandatory"
+        },
+        "2A38": {
+          "requirement": "optional"
+        },
+        "2A39": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Energy Expended feature is supported, otherwise excluded."
+        }
+      }
+    },
+    "180E": {
+      "specification": "Phone Alert Status Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/pass-v1-0_1751037359/PASS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A3F": {
+          "requirement": "mandatory"
+        },
+        "2A41": {
+          "requirement": "mandatory"
+        },
+        "2A40": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "180F": {
+      "specification": "Battery Service v1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BAS_v1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A19": {
+          "requirement": "mandatory"
+        },
+        "2BED": {
+          "requirement": "optional"
+        },
+        "2BEF": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2BE9": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2BF0": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2BEE": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2BEA": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2BEB": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Health Status characteristic is exposed; otherwise excluded."
+        },
+        "2BEC": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        },
+        "2A29": {
+          "requirement": "optional"
+        },
+        "2A24": {
+          "requirement": "optional"
+        },
+        "2A25": {
+          "requirement": "conditional",
+          "condition": "Optional if the Battery Level Status characteristic is exposed; otherwise excluded."
+        }
+      }
+    },
+    "1810": {
+      "specification": "Blood Pressure Service v1.1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BLS_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A35": {
+          "requirement": "mandatory"
+        },
+        "2A36": {
+          "requirement": "optional"
+        },
+        "2A49": {
+          "requirement": "mandatory"
+        },
+        "2A52": {
+          "requirement": "conditional",
+          "condition": "At least one of the following items shall be supported by an Enhanced Blood Pressure Service instance: Enhanced Blood Pressure Measurement; User Data Service – see Section 3.3.1.8; RACP; User Facing Time – see Section 3.3.1.9 and 3.4.1.7"
+        },
+        "2B36": {
+          "requirement": "conditional",
+          "condition": "The Blood Pressure Record characteristic shall be supported when the RACP characteristic is supported."
+        },
+        "2B34": {
+          "requirement": "conditional",
+          "condition": "C.2: At least one of the following items shall be supported by an Enhanced Blood Pressure Service instance: Enhanced Blood Pressure Measurement; User Data Service – see Section 3.3.1.8; RACP; User Facing Time – see Section 3.3.1.9 and 3.4.1.7 C.4: The Enhanced BP Measurement characteristic shall be supported when User Facing Time is supported, otherwise optional. See Section 3.3.1.9 ."
+        },
+        "2B35": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1811": {
+      "specification": "Alert Notification Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ANS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A47": {
+          "requirement": "mandatory"
+        },
+        "2A46": {
+          "requirement": "mandatory"
+        },
+        "2A48": {
+          "requirement": "mandatory"
+        },
+        "2A45": {
+          "requirement": "mandatory"
+        },
+        "2A44": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1812": {
+      "specification": "HID Service v1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/hids_v1-1_1777413158/HIDS_v1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {
+        "180F": {
+          "requirement": "conditional",
+          "condition": "HID over GATT Profile v1.2: any non-HID service (e.g., Battery Service) that has a characteristic whose value is described within the Report Map characteristic value shall be referenced as an «Include» within the HID Service definition."
+        }
+      },
+      "characteristicRefs": {
+        "2A4E": {
+          "requirement": "conditional",
+          "condition": "Mandatory for HID Devices supporting Boot Protocol Mode, otherwise optional."
+        },
+        "2A4D": {
+          "requirement": "optional"
+        },
+        "2A4B": {
+          "requirement": "mandatory"
+        },
+        "2A22": {
+          "requirement": "conditional",
+          "condition": "Mandatory for HID Devices operating as keyboards, else excluded."
+        },
+        "2A32": {
+          "requirement": "conditional",
+          "condition": "Mandatory for HID Devices operating as keyboards, else excluded."
+        },
+        "2A33": {
+          "requirement": "conditional",
+          "condition": "Mandatory for HID Devices operating as mice, else excluded."
+        },
+        "2A4A": {
+          "requirement": "mandatory"
+        },
+        "2A4C": {
+          "requirement": "mandatory"
+        },
+        "2C3A": {
+          "requirement": "conditional",
+          "condition": "Mandatory for devices that support the HID SCI feature (see Volume 6, Part B, Section 4.6.50 of [ 3 ]), otherwise excluded."
+        },
+        "2C39": {
+          "requirement": "conditional",
+          "condition": "Mandatory for devices that support the HID SCI feature (see Volume 6, Part B, Section 4.6.50 of [ 3 ]), otherwise excluded."
+        }
+      }
+    },
+    "1813": {
+      "specification": "Scan Parameters Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ScPS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A4F": {
+          "requirement": "mandatory"
+        },
+        "2A31": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1814": {
+      "specification": "Running Speed and Cadence Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/rscs-v1-0-1_1754501104/RSCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A53": {
+          "requirement": "mandatory"
+        },
+        "2A54": {
+          "requirement": "mandatory"
+        },
+        "2A5D": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Multiple Sensor Location feature is supported, otherwise optional."
+        },
+        "2A55": {
+          "requirement": "conditional",
+          "condition": "Mandatory if at least one SC Control Point procedure is supported, otherwise excluded."
+        }
+      }
+    },
+    "1815": {
+      "specification": "Automation IO Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/aios-v1-0_1751042704/AIOS_v1.0/out/en/index-en.html",
+      "verificationStatus": "unverified",
+      "verificationNotes": "Characteristic list withheld: Digital (2A56): UUID not confirmed: \"Digital\" is not listed in the current Bluetooth SIG Assigned Numbers (checked editions dated 2023-12-20 and 2026-09-18, and characteristic_uuids.yaml), and AIOS v1.0 does not state the UUID. 0x2A56 is the historically assigned value (org.bluetooth.characteristic.digital), found only in secondary sources. | Analog (2A58): UUID not confirmed: \"Analog\" is not listed in the current Bluetooth SIG Assigned Numbers (checked editions dated 2023-12-20 and 2026-09-18, and characteristic_uuids.yaml), and AIOS v1.0 does not state the UUID. 0x2A58 is the historically assigned value (org.bluetooth.characteristic.analog), found only in secondary sources. The Digital and Analog characteristic UUIDs could not be confirmed against a current primary source.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1816": {
+      "specification": "Cycling Speed and Cadence Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/CSCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A5B": {
+          "requirement": "mandatory"
+        },
+        "2A5C": {
+          "requirement": "mandatory"
+        },
+        "2A5D": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Multiple Sensor Locations feature is supported, otherwise optional."
+        },
+        "2A55": {
+          "requirement": "conditional",
+          "condition": "Mandatory if at least one SC Control Point procedure is supported, otherwise excluded."
+        }
+      }
+    },
+    "1818": {
+      "specification": "Cycling Power Service v1.1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/CPS_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A65": {
+          "requirement": "mandatory"
+        },
+        "2A63": {
+          "requirement": "mandatory"
+        },
+        "2A5D": {
+          "requirement": "mandatory"
+        },
+        "2A66": {
+          "requirement": "optional"
+        },
+        "2A64": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1819": {
+      "specification": "Location and Navigation Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/LNS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A6A": {
+          "requirement": "mandatory"
+        },
+        "2A67": {
+          "requirement": "mandatory"
+        },
+        "2A69": {
+          "requirement": "optional"
+        },
+        "2A6B": {
+          "requirement": "optional"
+        },
+        "2A68": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "181A": {
+      "specification": "Environmental Sensing Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ESS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "ESS Table 3.1 uses a generic \"ESS Characteristic\" row; the permitted ESS Characteristics come from the SIG permitted-characteristics list for this service.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BCF": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A73": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A72": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2AA3": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD0": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A7B": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A6C": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A74": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A7A": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A6F": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A77": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A2C": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2AA0": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2AA1": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD1": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD2": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD3": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD4": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD7": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD5": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD6": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A75": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A6D": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A78": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD8": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2BD9": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A6E": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A71": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A70": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A76": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A79": {
+          "requirement": "conditional",
+          "condition": "At least one ESS Characteristic shall be exposed."
+        },
+        "2A7D": {
+          "requirement": "conditional",
+          "condition": "C.2: Mandatory if at least one of the following descriptors can be changed by the Server for at least one ESS Characteristic: ES Measurement, ES Trigger Setting, ES Configuration, Characteristic User Description. C.3: Mandatory if the Write property is supported for the Characteristic User Description descriptor."
+        }
+      }
+    },
+    "181B": {
+      "specification": "Body Composition Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A9B": {
+          "requirement": "mandatory"
+        },
+        "2A9C": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "181C": {
+      "specification": "User Data Service v1.1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/uds_v1-1-1_1767011741/UDS_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "UDS Table 3.1 uses a generic \"UDS Characteristics\" row (optional); the permitted UDS Characteristics come from the SIG permitted-characteristics list for this service.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B4E": {
+          "requirement": "optional"
+        },
+        "2A7E": {
+          "requirement": "optional"
+        },
+        "2A84": {
+          "requirement": "optional"
+        },
+        "2A7F": {
+          "requirement": "optional"
+        },
+        "2A80": {
+          "requirement": "optional"
+        },
+        "2A81": {
+          "requirement": "optional"
+        },
+        "2A82": {
+          "requirement": "optional"
+        },
+        "2A83": {
+          "requirement": "optional"
+        },
+        "2B50": {
+          "requirement": "optional"
+        },
+        "2A85": {
+          "requirement": "optional"
+        },
+        "2A86": {
+          "requirement": "optional"
+        },
+        "2B4B": {
+          "requirement": "optional"
+        },
+        "2A87": {
+          "requirement": "optional"
+        },
+        "2A88": {
+          "requirement": "optional"
+        },
+        "2A89": {
+          "requirement": "optional"
+        },
+        "2A8A": {
+          "requirement": "optional"
+        },
+        "2A8B": {
+          "requirement": "optional"
+        },
+        "2B4C": {
+          "requirement": "optional"
+        },
+        "2A8C": {
+          "requirement": "optional"
+        },
+        "2B4A": {
+          "requirement": "optional"
+        },
+        "2A8D": {
+          "requirement": "optional"
+        },
+        "2A8E": {
+          "requirement": "optional"
+        },
+        "2B4D": {
+          "requirement": "optional"
+        },
+        "2B47": {
+          "requirement": "optional"
+        },
+        "2A8F": {
+          "requirement": "optional"
+        },
+        "2AA2": {
+          "requirement": "optional"
+        },
+        "2A90": {
+          "requirement": "optional"
+        },
+        "2A91": {
+          "requirement": "optional"
+        },
+        "2B48": {
+          "requirement": "optional"
+        },
+        "2B46": {
+          "requirement": "optional"
+        },
+        "2A92": {
+          "requirement": "optional"
+        },
+        "2B4F": {
+          "requirement": "optional"
+        },
+        "2A93": {
+          "requirement": "optional"
+        },
+        "2B49": {
+          "requirement": "optional"
+        },
+        "2A94": {
+          "requirement": "optional"
+        },
+        "2A95": {
+          "requirement": "optional"
+        },
+        "2A96": {
+          "requirement": "optional"
+        },
+        "2A97": {
+          "requirement": "optional"
+        },
+        "2A98": {
+          "requirement": "optional"
+        },
+        "2A99": {
+          "requirement": "mandatory"
+        },
+        "2A9A": {
+          "requirement": "mandatory"
+        },
+        "2A9F": {
+          "requirement": "mandatory"
+        },
+        "2B37": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "181D": {
+      "specification": "Weight Scale Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/WSS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A9E": {
+          "requirement": "mandatory"
+        },
+        "2A9D": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "181E": {
+      "specification": "Bond Management Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BMS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2AA4": {
+          "requirement": "mandatory"
+        },
+        "2AA5": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "181F": {
+      "specification": "Continuous Glucose Monitoring Service v1.0.2",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/CGMS_v1.0.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2AA7": {
+          "requirement": "mandatory"
+        },
+        "2AA8": {
+          "requirement": "mandatory"
+        },
+        "2AA9": {
+          "requirement": "mandatory"
+        },
+        "2AAA": {
+          "requirement": "mandatory"
+        },
+        "2AAB": {
+          "requirement": "mandatory"
+        },
+        "2A52": {
+          "requirement": "mandatory"
+        },
+        "2AAC": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1820": {
+      "specification": "Internet Protocol Support Profile v1.0, Section 4.1 (IP Support Service)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/IPSP_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "IPSP Section 4.1.2 states that the IP Support Service defines no characteristics.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1821": {
+      "specification": "Indoor Positioning Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/IPS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2AAD": {
+          "requirement": "mandatory"
+        },
+        "2AAE": {
+          "requirement": "mandatory"
+        },
+        "2AAF": {
+          "requirement": "mandatory"
+        },
+        "2AB0": {
+          "requirement": "optional"
+        },
+        "2AB1": {
+          "requirement": "conditional",
+          "condition": "Mandatory if Local North Coordinate is present else excluded."
+        },
+        "2AB2": {
+          "requirement": "optional"
+        },
+        "2AB3": {
+          "requirement": "optional"
+        },
+        "2AB4": {
+          "requirement": "optional"
+        },
+        "2AB5": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1822": {
+      "specification": "Pulse Oximeter Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/PLXS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2A5E": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of these characteristics."
+        },
+        "2A5F": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of these characteristics."
+        },
+        "2A60": {
+          "requirement": "mandatory"
+        },
+        "2A52": {
+          "requirement": "conditional",
+          "condition": "Mandatory if measurement storage is supported for Spot-check measurements."
+        }
+      }
+    },
+    "1823": {
+      "specification": "HTTP Proxy Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/HPS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2AB6": {
+          "requirement": "mandatory"
+        },
+        "2AB7": {
+          "requirement": "mandatory"
+        },
+        "2AB9": {
+          "requirement": "mandatory"
+        },
+        "2ABA": {
+          "requirement": "mandatory"
+        },
+        "2AB8": {
+          "requirement": "mandatory"
+        },
+        "2ABB": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1824": {
+      "specification": "Transport Discovery Service v1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/TDS_v1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2ABC": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1825": {
+      "specification": "Object Transfer Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ots_v1-0_1767056716/OTS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2ABD": {
+          "requirement": "mandatory"
+        },
+        "2ABE": {
+          "requirement": "mandatory"
+        },
+        "2ABF": {
+          "requirement": "mandatory"
+        },
+        "2AC0": {
+          "requirement": "mandatory"
+        },
+        "2AC1": {
+          "requirement": "optional"
+        },
+        "2AC2": {
+          "requirement": "optional"
+        },
+        "2AC3": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Server is capable of storing more than one object; excluded otherwise."
+        },
+        "2AC4": {
+          "requirement": "mandatory"
+        },
+        "2AC5": {
+          "requirement": "mandatory"
+        },
+        "2AC6": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Server is capable of storing more than one object; excluded otherwise."
+        },
+        "2AC7": {
+          "requirement": "conditional",
+          "condition": "Optional if the Server is capable of storing more than one object; excluded otherwise."
+        },
+        "2AC8": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1826": {
+      "specification": "Fitness Machine Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ftms-v1-0-1_1756429637/FTMS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2ACC": {
+          "requirement": "mandatory"
+        },
+        "2ACD": {
+          "requirement": "optional"
+        },
+        "2ACE": {
+          "requirement": "optional"
+        },
+        "2ACF": {
+          "requirement": "optional"
+        },
+        "2AD0": {
+          "requirement": "optional"
+        },
+        "2AD1": {
+          "requirement": "optional"
+        },
+        "2AD2": {
+          "requirement": "optional"
+        },
+        "2AD3": {
+          "requirement": "optional"
+        },
+        "2AD4": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Speed Target Setting feature is supported; otherwise Optional."
+        },
+        "2AD5": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Inclination Target Setting feature is supported; otherwise Optional."
+        },
+        "2AD6": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Resistance Target Setting feature is supported; otherwise Optional."
+        },
+        "2AD8": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Power Target Setting feature is supported; otherwise Optional."
+        },
+        "2AD7": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Heart Rate Target Setting feature is supported; otherwise Optional."
+        },
+        "2AD9": {
+          "requirement": "optional"
+        },
+        "2ADA": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Fitness Machine Control Point is supported; otherwise Optional."
+        }
+      }
+    },
+    "1827": {
+      "specification": "Mesh Protocol v1.1.1, Section 7.1 (Mesh Provisioning Service)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/mshprt_v1-1-1_1761227399/MshPRT_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2ADB": {
+          "requirement": "mandatory"
+        },
+        "2ADC": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1828": {
+      "specification": "Mesh Protocol v1.1.1, Section 7.2 (Mesh Proxy Service)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/mshprt_v1-1-1_1761227399/MshPRT_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2ADD": {
+          "requirement": "mandatory"
+        },
+        "2ADE": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1829": {
+      "specification": "Reconnection Configuration Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/RCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B1D": {
+          "requirement": "mandatory"
+        },
+        "2B1E": {
+          "requirement": "conditional",
+          "condition": "Mandatory if device supports more than one Advertisement Configuration or one or more of the following features: “Ready for Disconnect”, “Upgrade to LESC Only”, “Next Pairing OOB”, “Limited Access”, otherwise Excluded."
+        },
+        "2B1F": {
+          "requirement": "conditional",
+          "condition": "Mandatory if device supports more than one Advertisement Configuration or one or more of the following features: “Enable Disconnect”, “Propose Reconnection Timeout”, “Propose Connection Interval”, “Propose Peripheral Latency”, “Propose Supervision Timeout”, “Propose Advertisement Interval”, “Propose Advertisement Count”, “Propose Advertisement Repetition Time”, “Upgrade to LESC Only”, “Next Pairing OOB”, “Use of Filter Accept List”, “Limited Access”, otherwise Excluded."
+        }
+      }
+    },
+    "183A": {
+      "specification": "Insulin Delivery Service v1.0.2",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/IDS_v1.0.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B20": {
+          "requirement": "mandatory"
+        },
+        "2B21": {
+          "requirement": "mandatory"
+        },
+        "2B22": {
+          "requirement": "mandatory"
+        },
+        "2B23": {
+          "requirement": "mandatory"
+        },
+        "2B24": {
+          "requirement": "mandatory"
+        },
+        "2B25": {
+          "requirement": "optional"
+        },
+        "2B26": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the optional IDD Command Control Point is included, otherwise excluded."
+        },
+        "2B27": {
+          "requirement": "optional"
+        },
+        "2B28": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the optional IDD Record Access Control Point is included, otherwise excluded."
+        }
+      }
+    },
+    "183B": {
+      "specification": "Binary Sensor Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BSS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B2B": {
+          "requirement": "mandatory"
+        },
+        "2B2C": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "183C": {
+      "specification": "Emergency Configuration Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/EMCS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B2D": {
+          "requirement": "mandatory"
+        },
+        "2B2E": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "183D": {
+      "specification": "Authorization Control Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/acs_v1-0_1762900149/ACS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B2F": {
+          "requirement": "mandatory"
+        },
+        "2B30": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the AC Server sets the Protected Resource Uses Write Request bit or Protected Resource Uses Read Request bit to a value of 1 (see Table 4.60 ), otherwise Excluded."
+        },
+        "2B31": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the AC Server sets the Protected Resource Uses Read Request bit or Protected Resource Uses Notification bit to a value of 1 (see Table 4.60 ), otherwise Excluded."
+        },
+        "2B32": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the AC Server sets the Protected Resource Uses Indication bit to a value of 1 (see Table 4.60 ), otherwise Excluded."
+        },
+        "2B33": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "183E": {
+      "specification": "Physical Activity Monitor Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/PAMS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B3B": {
+          "requirement": "mandatory"
+        },
+        "2B3C": {
+          "requirement": "mandatory"
+        },
+        "2B3D": {
+          "requirement": "mandatory"
+        },
+        "2B3E": {
+          "requirement": "optional"
+        },
+        "2B3F": {
+          "requirement": "optional"
+        },
+        "2B40": {
+          "requirement": "optional"
+        },
+        "2B41": {
+          "requirement": "optional"
+        },
+        "2B42": {
+          "requirement": "optional"
+        },
+        "2B43": {
+          "requirement": "mandatory"
+        },
+        "2B44": {
+          "requirement": "mandatory"
+        },
+        "2B45": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "183F": {
+      "specification": "Elapsed Time Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ETS_v1.0/out/en/index-en.html",
+      "verificationStatus": "unverified",
+      "verificationNotes": "Characteristic list withheld: Elapsed Time (2BF2): UUID inferred, not stated: ETS v1.0 names this characteristic \"Current Elapsed Time\" but does not give its UUID, and Assigned Numbers has no entry by that name. 0x2BF2 \"Elapsed Time\" is the only corresponding assigned characteristic, but its GSS structure is 9 octets while ETS Table 3.2 defines an 11-octet value (Elapsed Time + Clock Status + Clock Capabilities). ETS defines one characteristic; its UUID could not be confirmed directly.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1840": {
+      "specification": "Generic Health Sensor Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/GHSS/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "GHSS Table 3.1 lists Health Sensor Features as \"O\" (optional); reproduced as published.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BF3": {
+          "requirement": "optional"
+        },
+        "2B8B": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of the Life Health Observations characteristic or the Stored Health Observations characteristic."
+        },
+        "2BDD": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of the Life Health Observations characteristic or the Stored Health Observations characteristic."
+        },
+        "2A52": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support the RACP characteristic if the Stored Health Observations characteristic is supported, otherwise Excluded."
+        },
+        "2BF4": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support the GHS Control Point if the Live Health Observations characteristic is supported, otherwise Excluded."
+        },
+        "2BF1": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support the Observation Schedule Changed characteristic if an Observation Schedule descriptor can change, otherwise Excluded."
+        }
+      }
+    },
+    "1843": {
+      "specification": "Audio Input Control Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/AICS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "AICS shall only be instantiated as an included service (e.g., included by VCS or MICS).",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B77": {
+          "requirement": "mandatory"
+        },
+        "2B78": {
+          "requirement": "mandatory"
+        },
+        "2B79": {
+          "requirement": "mandatory"
+        },
+        "2B7A": {
+          "requirement": "mandatory"
+        },
+        "2B7B": {
+          "requirement": "mandatory"
+        },
+        "2B7C": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1844": {
+      "specification": "Volume Control Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/VCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {
+        "1845": {
+          "requirement": "optional"
+        },
+        "1843": {
+          "requirement": "optional"
+        }
+      },
+      "characteristicRefs": {
+        "2B7D": {
+          "requirement": "mandatory"
+        },
+        "2B7E": {
+          "requirement": "mandatory"
+        },
+        "2B7F": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1845": {
+      "specification": "Volume Offset Control Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/VOCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "VOCS shall only be instantiated as an included service (e.g., included by VCS).",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B80": {
+          "requirement": "mandatory"
+        },
+        "2B81": {
+          "requirement": "mandatory"
+        },
+        "2B82": {
+          "requirement": "mandatory"
+        },
+        "2B83": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1846": {
+      "specification": "Coordinated Set Identification Service v1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/csis_v1-1_1761602233/CSIS_v1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B84": {
+          "requirement": "mandatory"
+        },
+        "2B85": {
+          "requirement": "optional"
+        },
+        "2B86": {
+          "requirement": "optional"
+        },
+        "2B87": {
+          "requirement": "conditional",
+          "condition": "Mandatory if Set Member Lock is supported, otherwise Optional."
+        },
+        "2C1A": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "1847": {
+      "specification": "Device Time Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/DTS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B8E": {
+          "requirement": "mandatory"
+        },
+        "2B8F": {
+          "requirement": "mandatory"
+        },
+        "2B90": {
+          "requirement": "mandatory"
+        },
+        "2B91": {
+          "requirement": "mandatory"
+        },
+        "2B92": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Time Change Logging feature is supported, otherwise Excluded."
+        },
+        "2A52": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Time Change Logging feature is supported, otherwise Excluded."
+        }
+      }
+    },
+    "1848": {
+      "specification": "Media Control Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/MCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {
+        "1825": {
+          "requirement": "conditional",
+          "condition": "If any Object ID characteristic (Media Player Icon, Current Track Segments, Current Track, Next Track, Parent Group, Current Group, Search Results) is exposed, OTS shall be instantiated as a «Secondary Service» and included."
+        }
+      },
+      "characteristicRefs": {
+        "2B93": {
+          "requirement": "mandatory"
+        },
+        "2B94": {
+          "requirement": "optional"
+        },
+        "2B95": {
+          "requirement": "optional"
+        },
+        "2B96": {
+          "requirement": "mandatory"
+        },
+        "2B97": {
+          "requirement": "mandatory"
+        },
+        "2B98": {
+          "requirement": "mandatory"
+        },
+        "2B99": {
+          "requirement": "mandatory"
+        },
+        "2B9A": {
+          "requirement": "optional"
+        },
+        "2B9B": {
+          "requirement": "optional"
+        },
+        "2B9C": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2B9D": {
+          "requirement": "optional"
+        },
+        "2B9E": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2B9F": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA0": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA1": {
+          "requirement": "optional"
+        },
+        "2BA2": {
+          "requirement": "optional"
+        },
+        "2BA3": {
+          "requirement": "mandatory"
+        },
+        "2BA4": {
+          "requirement": "optional"
+        },
+        "2BA5": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Media Control Point characteristic is supported, otherwise Excluded"
+        },
+        "2BA7": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Search Results Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA6": {
+          "requirement": "optional"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1849": {
+      "specification": "Media Control Service v1.0.1 (defines GMCS)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/MCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "GMCS uses the same characteristic table as MCS; Notify on Media Player Name is mandatory for GMCS (optional for MCS).",
+      "includedServices": {
+        "1825": {
+          "requirement": "conditional",
+          "condition": "If any Object ID characteristic (Media Player Icon, Current Track Segments, Current Track, Next Track, Parent Group, Current Group, Search Results) is exposed, OTS shall be instantiated as a «Secondary Service» and included."
+        }
+      },
+      "characteristicRefs": {
+        "2B93": {
+          "requirement": "mandatory"
+        },
+        "2B94": {
+          "requirement": "optional"
+        },
+        "2B95": {
+          "requirement": "optional"
+        },
+        "2B96": {
+          "requirement": "mandatory"
+        },
+        "2B97": {
+          "requirement": "mandatory"
+        },
+        "2B98": {
+          "requirement": "mandatory"
+        },
+        "2B99": {
+          "requirement": "mandatory"
+        },
+        "2B9A": {
+          "requirement": "optional"
+        },
+        "2B9B": {
+          "requirement": "optional"
+        },
+        "2B9C": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2B9D": {
+          "requirement": "optional"
+        },
+        "2B9E": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2B9F": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA0": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Current Track Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA1": {
+          "requirement": "optional"
+        },
+        "2BA2": {
+          "requirement": "optional"
+        },
+        "2BA3": {
+          "requirement": "mandatory"
+        },
+        "2BA4": {
+          "requirement": "optional"
+        },
+        "2BA5": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Media Control Point characteristic is supported, otherwise Excluded"
+        },
+        "2BA7": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the Search Results Object ID characteristic is supported, otherwise Excluded"
+        },
+        "2BA6": {
+          "requirement": "optional"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "184A": {
+      "specification": "Constant Tone Extension Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/CTES_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BAD": {
+          "requirement": "mandatory"
+        },
+        "2BAE": {
+          "requirement": "conditional",
+          "condition": "Mandatory when CTE on advertising channels is supported, else excluded."
+        },
+        "2BAF": {
+          "requirement": "conditional",
+          "condition": "Mandatory when CTE on advertising channels is supported, else excluded."
+        },
+        "2BB0": {
+          "requirement": "conditional",
+          "condition": "Mandatory when CTE on advertising channels is supported, else excluded."
+        },
+        "2BB1": {
+          "requirement": "conditional",
+          "condition": "Mandatory when CTE on advertising channels is supported, else excluded."
+        },
+        "2BB2": {
+          "requirement": "conditional",
+          "condition": "Mandatory when CTE on advertising channels is supported, else excluded."
+        }
+      }
+    },
+    "184B": {
+      "specification": "Telephone Bearer Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/37126-TBS-html5/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "TBS Section 2.2: \"No additional services are included in this service.\"",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BB3": {
+          "requirement": "mandatory"
+        },
+        "2BB4": {
+          "requirement": "mandatory"
+        },
+        "2BB5": {
+          "requirement": "mandatory"
+        },
+        "2BB6": {
+          "requirement": "mandatory"
+        },
+        "2BB7": {
+          "requirement": "optional"
+        },
+        "2BB8": {
+          "requirement": "conditional",
+          "condition": "Mandatory if Bearer Signal Strength is supported, otherwise Excluded."
+        },
+        "2BB9": {
+          "requirement": "mandatory"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        },
+        "2BBB": {
+          "requirement": "mandatory"
+        },
+        "2BBC": {
+          "requirement": "optional"
+        },
+        "2BBD": {
+          "requirement": "mandatory"
+        },
+        "2BBE": {
+          "requirement": "mandatory"
+        },
+        "2BBF": {
+          "requirement": "mandatory"
+        },
+        "2BC0": {
+          "requirement": "mandatory"
+        },
+        "2BC1": {
+          "requirement": "mandatory"
+        },
+        "2BC2": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "184C": {
+      "specification": "Telephone Bearer Service v1.0 (defines GTBS)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/37126-TBS-html5/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "GTBS uses the same characteristic table as TBS (it applies to each TBS instance and the single GTBS instance).",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BB3": {
+          "requirement": "mandatory"
+        },
+        "2BB4": {
+          "requirement": "mandatory"
+        },
+        "2BB5": {
+          "requirement": "mandatory"
+        },
+        "2BB6": {
+          "requirement": "mandatory"
+        },
+        "2BB7": {
+          "requirement": "optional"
+        },
+        "2BB8": {
+          "requirement": "conditional",
+          "condition": "Mandatory if Bearer Signal Strength is supported, otherwise Excluded."
+        },
+        "2BB9": {
+          "requirement": "mandatory"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        },
+        "2BBB": {
+          "requirement": "mandatory"
+        },
+        "2BBC": {
+          "requirement": "optional"
+        },
+        "2BBD": {
+          "requirement": "mandatory"
+        },
+        "2BBE": {
+          "requirement": "mandatory"
+        },
+        "2BBF": {
+          "requirement": "mandatory"
+        },
+        "2BC0": {
+          "requirement": "mandatory"
+        },
+        "2BC1": {
+          "requirement": "mandatory"
+        },
+        "2BC2": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "184D": {
+      "specification": "Microphone Control Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/22708-MICS-html5/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {
+        "1843": {
+          "requirement": "optional"
+        }
+      },
+      "characteristicRefs": {
+        "2BC3": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "184E": {
+      "specification": "Audio Stream Control Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/ASCS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BC4": {
+          "requirement": "conditional",
+          "condition": "At least one of the Sink ASE or Source ASE characteristics shall be supported."
+        },
+        "2BC5": {
+          "requirement": "conditional",
+          "condition": "At least one of the Sink ASE or Source ASE characteristics shall be supported."
+        },
+        "2BC6": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "184F": {
+      "specification": "Broadcast Audio Scan Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/BASS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BC7": {
+          "requirement": "mandatory"
+        },
+        "2BC8": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1850": {
+      "specification": "Published Audio Capabilities Service v1.0.2",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/PACS_v1.0.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BC9": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of the Sink PAC characteristic or Source PAC characteristic."
+        },
+        "2BCA": {
+          "requirement": "conditional",
+          "condition": "Optional to support if the Sink PAC characteristic is supported, otherwise Excluded."
+        },
+        "2BCB": {
+          "requirement": "conditional",
+          "condition": "Mandatory to support at least one of the Sink PAC characteristic or Source PAC characteristic."
+        },
+        "2BCC": {
+          "requirement": "conditional",
+          "condition": "Optional to support if the Source PAC characteristic is supported, otherwise Excluded."
+        },
+        "2BCD": {
+          "requirement": "mandatory"
+        },
+        "2BCE": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1851": {
+      "specification": "Basic Audio Profile v1.0.3",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/bap_v1-0-3_1782503972/BAP_v1.0.3/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Not a GATT service. The UUID is carried only in Service Data AD structures in periodic advertising, followed by the BASE (BAP Section 3.7.2.2). No characteristics are defined.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1852": {
+      "specification": "Basic Audio Profile v1.0.3",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/bap_v1-0-3_1782503972/BAP_v1.0.3/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Not a GATT service. The UUID is carried only in Service Data AD structures in extended advertising, followed by the Broadcast_ID (BAP Section 3.7.2.1). No characteristics are defined.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1853": {
+      "specification": "Common Audio Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/cas_v1-0_1759523467/CAS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {
+        "1846": {
+          "requirement": "conditional",
+          "condition": "If the device is a member of a Coordinated Set, the CAS instance shall include the CSIS instance that identifies the Coordinated Set; no more than one CSIS instance may be included."
+        }
+      },
+      "characteristicRefs": {}
+    },
+    "1854": {
+      "specification": "Hearing Access Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/HAS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BDA": {
+          "requirement": "mandatory"
+        },
+        "2BDB": {
+          "requirement": "optional"
+        },
+        "2BDC": {
+          "requirement": "conditional",
+          "condition": "Mandatory if Hearing Aid Preset Control Point is supported by the server; otherwise Excluded."
+        }
+      }
+    },
+    "1855": {
+      "specification": "Telephony and Media Audio Profile v1.0.2, Section 4 (TMAS)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/tmap_v1-0-2_1782504961/TMAP_v1.0.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2B51": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1856": {
+      "specification": "Public Broadcast Profile v1.0.2",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/pbp_v1-0-2_1761252922/PBP_v1.0.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Not a GATT service. The UUID is carried only in a Service Data AD structure in extended advertising (PBP Section 4). No characteristics are defined.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "1857": {
+      "specification": "Electronic Shelf Label Service v1.0.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/esls_v1-0_1751413567/ESLS_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2BF6": {
+          "requirement": "mandatory"
+        },
+        "2BF7": {
+          "requirement": "mandatory"
+        },
+        "2BF8": {
+          "requirement": "mandatory"
+        },
+        "2BF9": {
+          "requirement": "mandatory"
+        },
+        "2BFA": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the ESL supports one or more displays; otherwise Excluded."
+        },
+        "2BFB": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the ESL supports one or more displays; otherwise Excluded."
+        },
+        "2BFC": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the ESL supports one or more sensors; otherwise Excluded."
+        },
+        "2BFD": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the ESL supports one or more LEDs; otherwise Excluded."
+        },
+        "2BFE": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1858": {
+      "specification": "Gaming Audio Profile v1.0.1, Section 4 (GMAS)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/gmap-v1-0-1_1754597463/GMAP_v1.0.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C00": {
+          "requirement": "mandatory"
+        },
+        "2C01": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the UGG role is supported, otherwise Excluded."
+        },
+        "2C02": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the UGT role is supported, otherwise Excluded."
+        },
+        "2C03": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the BGS role is supported, otherwise Excluded."
+        },
+        "2C04": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the BGR role is supported, otherwise Excluded."
+        }
+      }
+    },
+    "1859": {
+      "specification": "Mesh Protocol v1.1.1",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/mshprt_v1-1-1_1761227399/MshPRT_v1.1.1/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "Not a GATT service. The UUID is used only in Solicitation PDUs (non-connectable advertising with Service UUID and Service Data AD types). No characteristics are defined.",
+      "includedServices": {},
+      "characteristicRefs": {}
+    },
+    "185A": {
+      "specification": "Industrial Measurement Device Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/imds-v1-0_1750970946/IMDS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "IMDS Table 3.1 row \"IMD Measurement\" has no UUID of its own; it is realized by the permitted characteristic types in the SIG permitted-characteristics list for this service.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C06": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C07": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C08": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C09": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C0A": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C0B": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2A6E": {
+          "requirement": "conditional",
+          "condition": "\"IMD Measurement\" (M): IMDS shall expose at least one IMD Measurement characteristic whose UUID is one of the permitted IMD Measurement types. Multiple instances permitted."
+        },
+        "2C0C": {
+          "requirement": "optional"
+        },
+        "2C0D": {
+          "requirement": "conditional",
+          "condition": "Mandatory if any of the IMD Measurement characteristic descriptors defined in Table 3.2 is writable, otherwise Excluded."
+        },
+        "2C0E": {
+          "requirement": "optional"
+        },
+        "2C0F": {
+          "requirement": "optional"
+        },
+        "2C10": {
+          "requirement": "optional"
+        },
+        "2C11": {
+          "requirement": "optional"
+        },
+        "2C12": {
+          "requirement": "optional"
+        },
+        "2C13": {
+          "requirement": "optional"
+        },
+        "2A52": {
+          "requirement": "optional"
+        }
+      }
+    },
+    "185B": {
+      "specification": "Ranging Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/RAS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C14": {
+          "requirement": "mandatory"
+        },
+        "2C15": {
+          "requirement": "optional"
+        },
+        "2C16": {
+          "requirement": "mandatory"
+        },
+        "2C17": {
+          "requirement": "mandatory"
+        },
+        "2C18": {
+          "requirement": "mandatory"
+        },
+        "2C19": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "185C": {
+      "specification": "HID Over GATT Profile v1.2, Section 6 (HID ISO Service)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/hogp_v1-2_1777405843/HOGP_v1.2/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C23": {
+          "requirement": "mandatory"
+        },
+        "2C24": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "185D": {
+      "specification": "Cookware Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/cws_v1-0_1761255349/CWS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "At least one Cookware Sensor Data characteristic shall be exposed (one per sensor). The sensor types permitted for it (SIG permitted-characteristics list for this service) are identified through the UUID field of its Sensor Info descriptor; they are not separate characteristics.",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C25": {
+          "requirement": "mandatory"
+        },
+        "2C27": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C26": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C28": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C29": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C2A": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C2B": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the CWD supports execution of the Control Loop, otherwise Excluded."
+        },
+        "2C2C": {
+          "requirement": "mandatory"
+        },
+        "2C2D": {
+          "requirement": "conditional",
+          "condition": "Mandatory if there is more than one Cookware Sensor Data characteristic, otherwise Excluded."
+        }
+      }
+    },
+    "185E": {
+      "specification": "Voice Assistant Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/vas_v1-0_1768257476/VAS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C31": {
+          "requirement": "mandatory"
+        },
+        "2C32": {
+          "requirement": "mandatory"
+        },
+        "2C33": {
+          "requirement": "mandatory"
+        },
+        "2C34": {
+          "requirement": "optional"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        },
+        "2C35": {
+          "requirement": "mandatory"
+        },
+        "2C36": {
+          "requirement": "optional"
+        },
+        "2C37": {
+          "requirement": "optional"
+        },
+        "2C38": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "185F": {
+      "specification": "Voice Assistant Service v1.0 (defines GVAS)",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/vas_v1-0_1768257476/VAS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "verificationNotes": "GVAS uses the same characteristic table as VAS (it applies to each VAS instance and the single GVAS instance).",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C31": {
+          "requirement": "mandatory"
+        },
+        "2C32": {
+          "requirement": "mandatory"
+        },
+        "2C33": {
+          "requirement": "mandatory"
+        },
+        "2C34": {
+          "requirement": "optional"
+        },
+        "2BBA": {
+          "requirement": "mandatory"
+        },
+        "2C35": {
+          "requirement": "mandatory"
+        },
+        "2C36": {
+          "requirement": "optional"
+        },
+        "2C37": {
+          "requirement": "optional"
+        },
+        "2C38": {
+          "requirement": "mandatory"
+        }
+      }
+    },
+    "1860": {
+      "specification": "Tire Pressure Monitoring System Service v1.0",
+      "specificationUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/tpmss_v1-0_1788273340/TPMSS_v1.0/out/en/index-en.html",
+      "verificationStatus": "verified",
+      "includedServices": {},
+      "characteristicRefs": {
+        "2C3B": {
+          "requirement": "mandatory"
+        },
+        "2C3C": {
+          "requirement": "mandatory"
+        },
+        "2C3D": {
+          "requirement": "conditional",
+          "condition": "Mandatory if the TPMS Sensor supports motion detection; otherwise Excluded."
+        },
+        "2C3E": {
+          "requirement": "mandatory"
+        },
+        "2C3F": {
+          "requirement": "optional"
+        },
+        "2C40": {
+          "requirement": "optional"
+        },
+        "2C41": {
+          "requirement": "mandatory"
+        }
+      }
+    }
+  }
+}

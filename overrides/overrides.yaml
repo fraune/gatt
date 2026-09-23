@@ -32,6 +32,7 @@
 #       "<name>": {requirement: optional|mandatory|conditional, condition: "..."}
 #     included:                     included (nested) services; there is no structured source
 #       - {uuid: "180F", requirement: .., condition: .., expect_text: ".."}
+#     name: "..."                   replace the Assigned Numbers name in the services registry
 #     note: "..."                   copied into the definition's verificationNotes
 # ---------------------------------------------------------------------------------------------
 
@@ -48,6 +49,9 @@ services:
 
   # --- Core Specification ------------------------------------------------------------------
   "1800":   # GAP: defined in Core Vol 3 Part C Section 12; table has one column per GAP role
+    # Requested registry name. Assigned Numbers (YAML and PDF, 2026-09-23) calls this "GAP" /
+    # "GAP Service"; the Core Specification calls it the "GAP Service".
+    name: Generic Access service
     spec:
       titles: [Core Specification]
       doc_path: host/generic-access-profile.html
@@ -60,6 +64,9 @@ services:
       Peripheral and LE Central columns; BR/EDR and LE Broadcaster/Observer columns are not used.
 
   "1801":   # GATT: defined in Core Vol 3 Part G Section 7; table has client and server columns
+    # Requested registry name. Assigned Numbers (YAML and PDF, 2026-09-23) calls this "GATT" /
+    # "GATT Service"; the Core Specification calls it the "GATT Service".
+    name: Generic Attribute service
     spec:
       titles: [Core Specification]
       doc_path: host/generic-attribute-profile--gatt-.html

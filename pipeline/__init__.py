@@ -1,1 +1,1 @@
-"""Pipeline that builds gatt_services.json from Bluetooth SIG primary sources."""
+"""Pipeline that builds output/gatt_catalog.json from Bluetooth SIG primary sources."""

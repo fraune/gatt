@@ -1,9 +1,9 @@
-"""Step 9: compare output/gatt_services.json against a reference file.
+"""Step 9: compare output/gatt_catalog.json against a reference file.
 
-Default reference: build/previous_gatt_services.json, the output of the previous run (snapshotted by
+Default reference: build/previous_gatt_catalog.json, the output of the previous run (snapshotted by
 the validate step). Use --reference to compare against something else, e.g. a file exported from git.
-Both files may be schema 1 (services[].characteristics) or schema 2.0 (registries +
-serviceDefinitions); each is normalized to the same shape before comparing.
+Either file may be schema 1 (services[].characteristics), 2.0 (registries + serviceDefinitions as
+arrays), or 3.0 (the same, keyed by UUID); each is normalized to one shape before comparing.
 
 Differences in characteristic membership, requirement, included services, or registry contents are
 "substantive"; condition wording, spec labels, and verification notes are informational.
@@ -14,30 +14,53 @@ Output: build/diff_report.md
 import json
 
 
+def _as_v3(data):
+    """Schema 2.0 (arrays with a uuid field) -> schema 3.0 shape (objects keyed by UUID)."""
+
+    def keyed(items):
+        return {i["uuid"]: {k: v for k, v in i.items() if k != "uuid"} for i in items}
+
+    return {
+        "characteristics": {c["uuid"]: c["name"] for c in data["characteristics"]},
+        "services": {s["uuid"]: s["name"] for s in data["services"]},
+        "serviceDefinitions": {
+            d["uuid"]: {
+                **{k: v for k, v in d.items() if k != "uuid"},
+                "characteristicRefs": keyed(d["characteristicRefs"]),
+                "includedServices": keyed(d["includedServices"]),
+            }
+            for d in data["serviceDefinitions"]
+        },
+    }
+
+
 def _normalize(data):
-    """-> (services {uuid: {...}}, characteristic registry {uuid: name} or None)."""
-    if "serviceDefinitions" in data:  # schema 2.0
-        char_names = {c["uuid"]: c["name"] for c in data["characteristics"]}
-        svc_names = {s["uuid"]: s["name"] for s in data["services"]}
+    """-> (services {uuid: {...}}, characteristic registry, service registry); registries are
+    None for schema 1, which has none."""
+    if "serviceDefinitions" in data:  # schema 2.0 or 3.0
+        if isinstance(data["serviceDefinitions"], list):
+            data = _as_v3(data)
+        char_names, svc_names = data["characteristics"], data["services"]
         services = {}
-        for d in data["serviceDefinitions"]:
-            services[d["uuid"]] = {
-                "name": svc_names.get(d["uuid"], "?"),
+        for uuid, d in data["serviceDefinitions"].items():
+            services[uuid] = {
+                "name": svc_names.get(uuid, "?"),
                 "status": d["verificationStatus"],
                 "specification": d["specification"],
                 "refs": {
-                    r["uuid"]: {
-                        "name": char_names.get(r["uuid"], "?"),
+                    ref_uuid: {
+                        "name": char_names.get(ref_uuid, "?"),
                         "requirement": r["requirement"],
                         "condition": r.get("condition"),
                     }
-                    for r in d["characteristicRefs"]
+                    for ref_uuid, r in d["characteristicRefs"].items()
                 },
                 "included": {
-                    i["uuid"]: i["requirement"] for i in d["includedServices"]
+                    inc_uuid: i["requirement"]
+                    for inc_uuid, i in d["includedServices"].items()
                 },
             }
-        return services, char_names
+        return services, char_names, svc_names
     services = {}  # schema 1
     for s in data["services"]:
         services[s["uuid"]] = {
@@ -56,7 +79,7 @@ def _normalize(data):
                 i["uuid"]: i.get("requirement") for i in s.get("includedServices", [])
             },
         }
-    return services, None
+    return services, None, None
 
 
 def _diff_service(ref, new):
@@ -89,17 +112,15 @@ def _diff_service(ref, new):
     return sub, info
 
 
-def _diff_registry(ref_chars, new_chars):
+def _diff_registry(ref_reg, new_reg, kind):
     lines = []
-    for u in sorted(ref_chars.keys() - new_chars.keys()):
-        lines.append(f"- removed characteristic {u} {ref_chars[u]}")
-    for u in sorted(new_chars.keys() - ref_chars.keys()):
-        lines.append(f"- added characteristic {u} {new_chars[u]}")
-    for u in sorted(ref_chars.keys() & new_chars.keys()):
-        if ref_chars[u] != new_chars[u]:
-            lines.append(
-                f'- renamed characteristic {u}: "{ref_chars[u]}" -> "{new_chars[u]}"'
-            )
+    for u in sorted(ref_reg.keys() - new_reg.keys()):
+        lines.append(f"- removed {kind} {u} {ref_reg[u]}")
+    for u in sorted(new_reg.keys() - ref_reg.keys()):
+        lines.append(f"- added {kind} {u} {new_reg[u]}")
+    for u in sorted(ref_reg.keys() & new_reg.keys()):
+        if ref_reg[u] != new_reg[u]:
+            lines.append(f'- renamed {kind} {u}: "{ref_reg[u]}" -> "{new_reg[u]}"')
     return lines
 
 
@@ -111,10 +132,10 @@ def run(ctx):
         json.loads(reference.read_text()),
         json.loads(ctx.output_path.read_text()),
     )
-    ref, ref_chars = _normalize(ref_data)
-    new, new_chars = _normalize(new_data)
-    # The generated output is always schema 2.0; {} only guards the type.
-    new_chars = new_chars or {}
+    ref, ref_chars, ref_svcs = _normalize(ref_data)
+    new, new_chars, new_svcs = _normalize(new_data)
+    # The generated output always has registries; {} only guards the type.
+    new_chars, new_svcs = new_chars or {}, new_svcs or {}
     shown = (
         reference.relative_to(ctx.root)
         if reference.is_relative_to(ctx.root)
@@ -138,10 +159,16 @@ def run(ctx):
     for u in sorted(new.keys() - ref.keys()):
         lines.append(f"- service {u} {new[u]['name']} not in reference")
         n_sub += 1
-    if ref_chars is not None:
-        reg = _diff_registry(ref_chars, new_chars)
-        if reg:
-            lines += ["## Characteristics registry"] + reg + [""]
+    if ref_chars is not None and ref_svcs is not None:
+        for title, reg in (
+            (
+                "Characteristics registry",
+                _diff_registry(ref_chars, new_chars, "characteristic"),
+            ),
+            ("Services registry", _diff_registry(ref_svcs, new_svcs, "service")),
+        ):
+            if reg:
+                lines += [f"## {title}"] + reg + [""]
     else:
         lines += [
             f"Reference has no characteristics registry; generated registry has {len(new_chars)} entries.",

@@ -1,7 +1,12 @@
-"""Step 7: assemble the schema 2.0 dataset as a candidate file (validated and published by step 8).
+"""Step 7: assemble the schema 3.0 catalog as a candidate file (validated and published by step 8).
+
+Schema 3.0 keys every UUID collection by UUID: `characteristics` and `services` map UUID -> name;
+`serviceDefinitions` maps service UUID -> definition, whose `characteristicRefs` and
+`includedServices` map UUID -> {requirement, condition?}.
 
 Registries come straight from Assigned Numbers: every characteristic and every service, whether
-or not any modeled spec references it. serviceDefinitions hold one entry per service.
+or not any modeled spec references it. A registry name is only replaced when overrides give a
+`name` for that service (with a comment saying why).
 
 verificationStatus per service definition:
   verified   - the characteristic list comes from the latest adopted spec and every entry resolved
@@ -12,25 +17,30 @@ verificationStatus per service definition:
                (overrides manual_uuids). characteristicRefs and includedServices are left empty
                and verificationNotes says why. Nothing partial is emitted.
 
-Outputs: build/gatt_services.candidate.json, build/problems.md
+Outputs: build/gatt_catalog.candidate.json, build/problems.md
 """
 
 import json
 from datetime import UTC, datetime
 
-SCHEMA_VERSION = "2.0"
+SCHEMA_VERSION = "3.0"
+
+
+def _entry(requirement, condition):
+    entry = {"requirement": requirement}
+    if requirement == "conditional":
+        entry["condition"] = " ".join((condition or "").split())
+    return entry
 
 
 def _included(ov, ext, problems):
-    out = []
+    out = {}
     for inc in ov.get("included", []):
-        entry = {
-            "uuid": str(inc["uuid"]).upper(),
-            "requirement": inc.get("requirement", "optional"),
-        }
-        if entry["requirement"] == "conditional" and inc.get("condition"):
-            entry["condition"] = " ".join(inc["condition"].split())
-        out.append(entry)
+        uuid = str(inc["uuid"]).upper()
+        if uuid in out:
+            problems.append(f"included service {uuid} listed twice in overrides")
+            continue
+        out[uuid] = _entry(inc.get("requirement", "optional"), inc.get("condition"))
         phrase = inc.get("expect_text")
         if phrase and not ext.get("text_checks", {}).get(phrase):
             problems.append(f'included-service evidence not found in spec: "{phrase}"')
@@ -42,14 +52,17 @@ def _included(ov, ext, problems):
     return out
 
 
-def _ref(c):
-    ref = {"uuid": c["uuid"], "requirement": c["requirement"]}
-    if c["requirement"] == "conditional":
-        ref["condition"] = c.get("condition") or ""
-    return ref
+def _refs(characteristics, problems):
+    out = {}
+    for c in characteristics:
+        if c["uuid"] in out:
+            problems.append(f"characteristic {c['uuid']} appears twice")
+            continue
+        out[c["uuid"]] = _entry(c["requirement"], c.get("condition"))
+    return out
 
 
-def _definition(svc, ov, spec, ext, res):
+def _definition(ov, spec, ext, res):
     problems = list(res["problems"])
     if not spec:
         problems.insert(0, "no adopted specification found on bluetooth.com")
@@ -59,6 +72,7 @@ def _definition(svc, ov, spec, ext, res):
     if expected and not ext.get("text_checks", {}).get(expected):
         problems.append(f'expected phrase not found in spec: "{expected}"')
     included = _included(ov, ext, problems)
+    refs = _refs(res["characteristics"], problems)
     flags = [
         f"{c['name']} ({c['uuid']}): {' '.join(c['flag'].split())}"
         for c in res["characteristics"]
@@ -66,7 +80,6 @@ def _definition(svc, ov, spec, ext, res):
     ]
 
     definition = {
-        "uuid": svc["uuid"],
         "specification": spec["label"] if spec else None,
         "specificationUrl": spec["doc_url"] if spec else None,
     }
@@ -78,14 +91,14 @@ def _definition(svc, ov, spec, ext, res):
             ["Characteristic list withheld: " + " | ".join(reasons)]
             + ([note] if note else [])
         )
-        definition["includedServices"] = []
-        definition["characteristicRefs"] = []
+        definition["includedServices"] = {}
+        definition["characteristicRefs"] = {}
     else:
         definition["verificationStatus"] = "verified"
         if note:
             definition["verificationNotes"] = note
         definition["includedServices"] = included
-        definition["characteristicRefs"] = [_ref(c) for c in res["characteristics"]]
+        definition["characteristicRefs"] = refs
     return definition, problems + flags
 
 
@@ -96,17 +109,16 @@ def run(ctx):
     resolved = ctx.read_json("resolved.json")
     overrides = ctx.load_overrides()["services"]
 
-    definitions, report = [], []
+    definitions, report = {}, []
     for svc in assigned["services"]:
         uuid = svc["uuid"]
         definition, reasons = _definition(
-            svc,
             overrides.get(uuid, {}),
             specs.get(uuid),
             extracted.get(uuid, {}),
             resolved.get(uuid, {"characteristics": [], "problems": []}),
         )
-        definitions.append(definition)
+        definitions[uuid] = definition
         if reasons:
             report.append(
                 (uuid, svc["name"], definition["verificationStatus"], reasons)
@@ -121,12 +133,11 @@ def run(ctx):
             ),
             "schemaVersion": SCHEMA_VERSION,
         },
-        "characteristics": [
-            {"uuid": c["uuid"], "name": c["name"]} for c in assigned["characteristics"]
-        ],
-        "services": [
-            {"uuid": s["uuid"], "name": s["name"]} for s in assigned["services"]
-        ],
+        "characteristics": {c["uuid"]: c["name"] for c in assigned["characteristics"]},
+        "services": {
+            s["uuid"]: overrides.get(s["uuid"], {}).get("name", s["name"])
+            for s in assigned["services"]
+        },
         "serviceDefinitions": definitions,
     }
     ctx.candidate_output.parent.mkdir(parents=True, exist_ok=True)
@@ -141,7 +152,7 @@ def run(ctx):
     (ctx.build_dir / "problems.md").write_text("\n".join(lines) + "\n")
 
     counts = {}
-    for d in definitions:
+    for d in definitions.values():
         counts[d["verificationStatus"]] = counts.get(d["verificationStatus"], 0) + 1
     return (
         f"wrote {ctx.candidate_output.relative_to(ctx.root)}: "
